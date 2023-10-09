@@ -17,6 +17,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/user")
+    public String showUserPage(Model model) {
+        model.addAttribute("registerRequest", new UserModel());
+
+
+        return NavigationController.getPageWithPath("login");
+    }
+
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerRequest", new UserModel());
