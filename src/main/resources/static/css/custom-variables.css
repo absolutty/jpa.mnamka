@@ -5,6 +5,12 @@
     --color-white: #f9f9f9;
     /* FONTS  */
     --primary-font: 'QumpellkaNo12', sans-serif;
+    /* FONTS-SIZES  */
+    --font-small: 14px;
+    --font-small-medium: 16px;
+    --font-medium: 20px;
+    --font-large: 32px;
+    --font-xlarge: 48px;
 }
 
 /* --primary-font */
