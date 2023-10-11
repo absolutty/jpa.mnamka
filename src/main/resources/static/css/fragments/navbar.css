@@ -1,0 +1,68 @@
+/* Main navigation bar styles */
+.navigation-bar {
+    font-family: var(--primary-font);
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.navigation-bar-row, .navigation-bar-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-bar .navigation-bar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navigation-bar a {
+    font-family: var(--primary-font);
+    color: var(--color-black);
+    font-size: var(--font-medium);
+    padding: 5px;
+    text-decoration: none;
+}
+
+.navigation-bar a:hover {
+    text-decoration: none;
+    color: var(--color-brown);
+}
+
+.navigation-bar .middle-link {
+    font-size: var(--font-large);
+    flex: 1;
+    text-align: center;
+}
+
+/* RESPONSIVE DESIGN FOR SMALLER BROWSERS */
+@media (max-width: 700px) {
+    .navigation-bar .middle-link {
+        font-size: var(--font-medium);
+    }
+    .navigation-bar a {
+        font-size: var(--font-small-medium);
+    }
+}
+
+/* RESPONSIVE DESIGN FOR SMARTPHONES */
+@media (max-width: 600px) {
+    .navigation-bar .navigation-bar-row {
+        display: block;
+    }
+
+    .navigation-bar .middle-link,
+    .navigation-bar a {
+        font-size: var(--font-medium);
+    }
+
+    .navigation-bar-item {
+        text-align: center; /* Center-align the content horizontally */
+    }
+
+    .middle-link {
+        display: inline-block; /* Make the link a block-level element */
+    }
+
+}
