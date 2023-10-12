@@ -5,10 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import sk.uniza.fri.mnamka.model.UserModel;
 import sk.uniza.fri.mnamka.service.UserService;
 
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
 
     private final UserService userService;
@@ -17,14 +19,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public String showUserPage(Model model) {
-        model.addAttribute("registerRequest", new UserModel());
+    @GetMapping
+    public String getUserPage() {
+        //TODO: if user is logged, go to user_page, else go to login page
 
-
-        return NavigationController.getPageWithPath("login");
+        return NavigationController.getPageWithPath("user/login");
     }
-
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
