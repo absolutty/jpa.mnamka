@@ -1,0 +1,35 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.content-wrap.with-image-background {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 16px;
+}
+
+.content.auth-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+.auth-form {
+    background: var(--color-white);
+    max-width: 360px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.auth-form input {
+    border: 2px outset var(--color-brown);
+    /*border-radius: 5px;*/
+    font-size: var(--font-small);
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 15px 0;
+    padding: 15px;
+}
