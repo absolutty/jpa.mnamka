@@ -5,6 +5,7 @@
     --color-white: #f9f9f9;
     /* FONTS  */
     --primary-font: 'QumpellkaNo12', sans-serif;
+    --secondary-font: 'Roboto', sans-serif;
     /* FONTS-SIZES  */
     --font-small: 14px;
     --font-small-medium: 16px;
@@ -16,7 +17,44 @@
 /* --primary-font */
 @font-face {
     font-family: 'QumpellkaNo12';
-    src: url('../fonts/QumpellkaNo12.otf') format('truetype'); /* Adjust the file path and format as needed */
+    src: url('../fonts/QumpellkaNo12.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+/* --secondary-font */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/* components that use --secondary-font  */
+a, input, p {
+    font-family: var(--secondary-font);
+}
+
+/* ----------- commonly used styles ----------- */
+/* BUTTON */
+button {
+    color: var(--color-black);
+    font-family: var(--secondary-font);
+    font-size: var(--font-small);
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px dashed var(--color-black);
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
+button:hover, button:active, button:focus {
+    color: var(--color-white);
+    background: var(--color-brown);
+}
+
+/* LINKS */
+a {
+    color: silver;
+}
+a:hover, a:active, a:focus {
+    color: var(--color-brown);
 }
