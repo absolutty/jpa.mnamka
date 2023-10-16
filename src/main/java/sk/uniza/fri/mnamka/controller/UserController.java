@@ -5,10 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import sk.uniza.fri.mnamka.model.UserModel;
 import sk.uniza.fri.mnamka.service.UserService;
 
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
 
     private final UserService userService;
@@ -17,33 +21,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public String showUserPage(Model model) {
-        model.addAttribute("registerRequest", new UserModel());
-
-
-        return NavigationController.getPageWithPath("login");
-    }
-
-
-    @GetMapping("/register")
-    public String getRegisterPage(Model model) {
-        model.addAttribute("registerRequest", new UserModel());
-        return "register_page";
+    @GetMapping
+    public RedirectView getUserPage() {
+        boolean isLogged = false;
+        if (isLogged) {  //TODO: if user is logged, go to user_page, else go to login page
+            return null;
+        } else {
+            return new RedirectView("/user/login");
+        }
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new UserModel());
-        return "login_page";
-    }
-
-    @PostMapping("/register")
-    public String register(@ModelAttribute UserModel userModel) {
-        System.out.println("register request: ");
-        UserModel registeredUser = userService.registerUser(userModel.getName(), userModel.getLastName(),  userModel.getEmail(), userModel.getPassword());
-
-        return registeredUser == null ? "error_page" : "login_page";
+        return NavigationController.getPageWithPath("user/login");
     }
 
     @PostMapping("/login")
@@ -55,7 +46,24 @@ public class UserController {
             model.addAttribute("email", authenticated.getEmail());
             return "personal_page";
         } else {
-            return "error_page";
+            return "error";
         }
+    }
+
+    @GetMapping("/register")
+    public String getRegisterPage(Model model) {
+        model.addAttribute("registerRequest", new UserModel());
+        return NavigationController.getPageWithPath("user/register");
+    }
+
+    @PostMapping("/register")
+    public RedirectView register(@ModelAttribute UserModel userModel) {
+        UserModel registerUser = userService.registerUser(userModel.getName(), userModel.getLastName(),  userModel.getEmail(), userModel.getPassword());
+        if (registerUser == null) {
+            return new RedirectView("/error");
+        } else {
+            return new RedirectView("/user/login");
+        }
+
     }
 }
