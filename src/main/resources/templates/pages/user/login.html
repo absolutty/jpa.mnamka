@@ -11,7 +11,7 @@
 			<form class="auth-form" method="post" th:action="@{/user/login}" th:object="${loginRequest}">
 				<input name="email" type="email" placeholder="Email" required/>
 				<input name="password" type="password" placeholder="Heslo" required/>
-				<button name="login" type="submit">Prihlásenie</button>
+				<button name="login" type="submit" class="button-small">Prihlásenie</button>
 				<p>Nemáš ešte účet?
 					<a th:href="@{/user/register}">Registruj sa tu</a>
 				</p>
