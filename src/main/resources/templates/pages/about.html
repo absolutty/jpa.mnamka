@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head title="About page" th:insert="fragments/head"></head>
+<head title="About page" >
+  <th:block th:insert="~{fragments/head}" />
+</head>
 <body>
-<nav th:replace="fragments/navbar"></nav>
+<nav th:replace="~{fragments/navbar}"></nav>
   <h1>About Page</h1>
 </body>
 </html>
