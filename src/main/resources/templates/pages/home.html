@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head title="Home page" >
-	<th:block th:insert="fragments/head" />
+	<th:block th:insert="~{fragments/head}" />
 	<link th:href="@{/css/pages/home.css}" rel="stylesheet" type="text/css" >
 </head>
 <body>
-<nav th:replace="fragments/navbar"></nav>
+<nav th:replace="~{fragments/navbar}"></nav>
 	<div class="content-wrap">
 		<div class="content home-page">
 			<div class="grid">
