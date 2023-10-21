@@ -8,11 +8,6 @@ html, body {
 .content-wrap.with-image-background {
     background-size: cover;
     background-position: center;
-    margin: 16px;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .content.auth-page {

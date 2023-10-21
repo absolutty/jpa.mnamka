@@ -6,7 +6,7 @@
 </head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-<div class="content-wrap with-image-background" style="background-image: url('/images/user-background.png')">
+<div class="content-wrap centered with-image-background" style="background-image: url('/images/user-background.png')">
     <div class="content auth-page">
         <form class="auth-form" method="post" th:action="@{/user/register}" th:object="${registerRequest}">
             <input name="name" type="text" placeholder="Meno" required/>
