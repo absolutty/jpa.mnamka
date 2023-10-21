@@ -1,7 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head title="Error page" >
+	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/error/page404.css}" rel="stylesheet" type="text/css" >
+</head>
 <body>
-	<h1>Something went wrong! </h1>
-	<a href="/">Go Home</a>
-	</body>
+	<div class="content-wrap centered">
+		<div class="content page404">
+			<img class="fire-image" alt="Fire image" th:src="@{/images/fire.png}"/>
+			<h1 class="title">404</h1>
+			<h2 class="explanation">Ups, stránka nebola nájdená!</h2>
+			<a th:href="@{/home}">
+				<button class="grid-item button-small">
+					Presmeruj ma na domovsku stránku
+				</button>
+			</a>
+		</div>
+	</div>
+</body>
 </html>
