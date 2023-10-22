@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import sk.uniza.fri.mnamka.helper.PathFormatter;
 import sk.uniza.fri.mnamka.model.UserModel;
 import sk.uniza.fri.mnamka.service.UserService;
 
@@ -16,6 +16,7 @@ import sk.uniza.fri.mnamka.service.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final PathFormatter pathFormatter = new PathFormatter("pages/user/%s");
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -34,7 +35,7 @@ public class UserController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new UserModel());
-        return NavigationController.getPageWithPath("user/login");
+        return pathFormatter.getPageNameWithPath("login");
     }
 
     @PostMapping("/login")
@@ -53,7 +54,7 @@ public class UserController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerRequest", new UserModel());
-        return NavigationController.getPageWithPath("user/register");
+        return pathFormatter.getPageNameWithPath("register");
     }
 
     @PostMapping("/register")

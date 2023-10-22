@@ -1,7 +1,7 @@
 package sk.uniza.fri.mnamka.model;
 
 import jakarta.persistence.*;
-import sk.uniza.fri.mnamka.FieldValidator;
+import sk.uniza.fri.mnamka.helper.FieldValidator;
 
 import java.time.LocalDate;
 import java.util.Objects;

@@ -86,3 +86,13 @@ h1 {
 h2 {
     font-weight: normal;
 }
+
+/* CONTENT */
+.content-wrap.centered {
+    margin-left: 16px;
+    margin-right: 16px;
+    min-height: 96vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
