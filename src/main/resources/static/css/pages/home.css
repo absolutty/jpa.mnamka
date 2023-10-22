@@ -1,0 +1,49 @@
+.content-wrap {
+    margin: 16px;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 32px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr 1fr;
+    height: 87vh;
+}
+.grid-item {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.grid-item.button-small  {
+    position: absolute;
+}
+.grid-item.button-large {
+    margin-top: 20px;
+}
+
+.dessert {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 2;
+}
+.food {
+    grid-column: 4 / span 3;
+    grid-row: 1;
+}
+.section1-text {
+    grid-column: 7 / span 2;
+    grid-row: 1;
+}
+.section2-text {
+    grid-column: 4 / span 2;
+    grid-row: 2;
+}
+.cocktail {
+    grid-column: 6 / span 3 ;
+    grid-row: 2 ;
+}

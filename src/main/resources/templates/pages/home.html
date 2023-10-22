@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head title="Home page" >
+	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/home.css}" rel="stylesheet" type="text/css" >
+</head>
+<body>
+<nav th:replace="~{fragments/navbar}"></nav>
+	<div class="content-wrap">
+		<div class="content home-page">
+			<div class="grid">
+				<div class="grid-item dessert" style="background-image: url('/images/dessert.jpg')">
+					<button class="grid-item button-small" style="left: 16px; bottom: 16px; transform: rotate(-10deg);">
+						Dezerty
+					</button>
+				</div>
+				<div class="grid-item food" style="background-image: url('/images/food.jpg')">
+					<button class="grid-item button-small" style="right: 16px; bottom: 16px; transform: rotate(10deg);">
+						Jedlá
+					</button>
+				</div>
+				<div class="grid-item section1-text">
+					<h1>Reštaurácia Mňamka</h1>
+					<h2>Je na Vás, ktoré jedlo si u nás vychutnáte</h2>
+					<a th:href="@{/menu}">
+						<button class="grid-item button-large">
+							Zobraz menu
+						</button>
+					</a>
+				</div>
+				<div class="grid-item section2-text">
+					<h1>Kvalitné suroviny</h1>
+					<h2>V našej kuchyni sa varí len z tých najkvalitnejších dostupných surovín od overených dodávateľov</h2>
+					<a th:href="@{/about}">
+						<button class="grid-item button-large">
+							Viacej o nás
+						</button>
+					</a>
+				</div>
+				<div class="grid-item cocktail" style="background-image: url('/images/cocktail.jpg')">
+					<button class="grid-item button-small" style="left: 16px; bottom: 16px; transform: rotate(-10deg);">
+						Nápoje
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
