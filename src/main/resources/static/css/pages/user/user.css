@@ -8,6 +8,7 @@ html, body {
 .content-wrap.with-image-background {
     background-size: cover;
     background-position: center;
+    background-image: url('/images/user-background.png');
 }
 
 .content.auth-page {
@@ -29,4 +30,31 @@ html, body {
     box-sizing: border-box;
     margin: 0 0 15px 0;
     padding: 15px;
+}
+
+/* RESPONSIVE DESIGN FOR SMARTPHONES */
+@media (max-width: 600px) {
+    body {
+        background-size: cover;
+        background-position: center;
+        background-image: url('/images/user-background.png');
+    }
+
+    .content-wrap.with-image-background {
+        background-image: none;
+    }
+
+    .auth-form {
+        max-width: none;
+    }
+
+    .content-wrap.centered {
+        display: block;
+        margin: 16px;
+    }
+
+    .content.auth-page {
+        width: auto;
+    }
+
 }
