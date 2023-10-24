@@ -47,3 +47,20 @@
     grid-column: 6 / span 3 ;
     grid-row: 2 ;
 }
+
+/* RESPONSIVE DESIGN FOR SMALLER BROWSERS */
+@media (max-width: 800px) {
+    .grid {
+        display: block;
+        height: 0;
+    }
+    .grid-item {
+        height: 300px;
+        margin-top: 16px;
+        background-position: bottom;
+    }
+
+    .grid-item.button-small, .grid-item.button-large  {
+        height: auto;
+    }
+}
