@@ -13,7 +13,7 @@ function unwrap(wrapperElement) {
 
 document.addEventListener('DOMContentLoaded', function () {
         function toggleMenu() {
-            const navigationBarRow = document.querySelector('.navigation-bar-row');
+            const navigationBarRow = document.querySelector('.navigation-bar-list');
             let mobileMenuToggle = document.querySelector('.mobile-menu');
 
             if (window.innerWidth <= 600) {
