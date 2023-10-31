@@ -1,4 +1,4 @@
-package sk.uniza.fri.mnamka.controller;
+package sk.uniza.fri.mnamka.controller.pages;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,19 +7,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
+import sk.uniza.fri.mnamka.controller.PageController;
 import sk.uniza.fri.mnamka.helper.PathFormatter;
 import sk.uniza.fri.mnamka.model.UserModel;
 import sk.uniza.fri.mnamka.service.UserService;
 
 @Controller
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserController extends PageController {
 
     private final UserService userService;
-    private final PathFormatter pathFormatter = new PathFormatter("pages/user/%s");
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @Override
+    public PathFormatter getPathFormatter() {
+        return new PathFormatter("pages/user/%s");
     }
 
     @GetMapping
@@ -35,26 +40,30 @@ public class UserController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new UserModel());
-        return pathFormatter.getPageNameWithPath("login");
+        return getPathFormatter().getPageNameWithPath("login");
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserModel userModel, Model model) {
-        System.out.println("login request: ");
+    public RedirectView login(@ModelAttribute UserModel userModel, Model model) {
         UserModel authenticated = userService.authenticate(userModel.getEmail(), userModel.getPassword());
 
         if (authenticated != null) {
             model.addAttribute("email", authenticated.getEmail());
-            return "personal_page";
+            return new RedirectView("/user/personal_page");
         } else {
-            return "error";
+            return new RedirectView("/error");
         }
+    }
+
+    @GetMapping("/personal_page")
+    public String personalPage() {
+        return getPathFormatter().getPageNameWithPath("personal_page");
     }
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerRequest", new UserModel());
-        return pathFormatter.getPageNameWithPath("register");
+        return getPathFormatter().getPageNameWithPath("register");
     }
 
     @PostMapping("/register")
@@ -65,6 +74,5 @@ public class UserController {
         } else {
             return new RedirectView("/user/login");
         }
-
     }
 }
