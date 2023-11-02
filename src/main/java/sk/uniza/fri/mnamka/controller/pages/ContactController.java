@@ -11,7 +11,7 @@ public class ContactController extends PageController {
 
     @GetMapping
     public String getContactPage() {
-        return getPathFormatter().getPageNameWithPath("contact");
+        return getPathFormatter().getPageNameWithPath("contact_page");
     }
 
 }

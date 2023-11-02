@@ -11,7 +11,7 @@ public class MenuController extends PageController {
 
     @GetMapping
     public String getMenuPage() {
-        return getPathFormatter().getPageNameWithPath("menu");
+        return getPathFormatter().getPageNameWithPath("menu_page");
     }
 
 }

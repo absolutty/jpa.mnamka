@@ -11,7 +11,7 @@ public class AboutController extends PageController {
 
     @GetMapping
     public String getAboutPage() {
-        return getPathFormatter().getPageNameWithPath("about");
+        return getPathFormatter().getPageNameWithPath("about_page");
     }
 
 }

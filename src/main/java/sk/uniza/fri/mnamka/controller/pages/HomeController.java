@@ -11,7 +11,7 @@ public class HomeController extends PageController {
 
     @GetMapping
     public String getHomePage() {
-        return getPathFormatter().getPageNameWithPath("home");
+        return getPathFormatter().getPageNameWithPath("home_page");
     }
 
 }
