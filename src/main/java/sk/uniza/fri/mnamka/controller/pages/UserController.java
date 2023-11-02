@@ -1,12 +1,12 @@
 package sk.uniza.fri.mnamka.controller.pages;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
 import sk.uniza.fri.mnamka.controller.PageController;
 import sk.uniza.fri.mnamka.helper.PathFormatter;
 import sk.uniza.fri.mnamka.model.UserModel;
@@ -28,51 +28,48 @@ public class UserController extends PageController {
     }
 
     @GetMapping
-    public RedirectView getUserPage() {
-        boolean isLogged = false;
-        if (isLogged) {  //TODO: if user is logged, go to user_page, else go to login page
-            return null;
+    public String getUserPage(HttpSession session) {
+        UserModel user = (UserModel) session.getAttribute("user");
+
+        if (user != null) {
+            return getPathFormatter().getPageNameWithPath("user_page");
         } else {
-            return new RedirectView("/user/login");
+            return "redirect:/user/login";
         }
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("loginRequest", new UserModel());
-        return getPathFormatter().getPageNameWithPath("login");
+        return getPathFormatter().getPageNameWithPath("login_page");
     }
 
     @PostMapping("/login")
-    public RedirectView login(@ModelAttribute UserModel userModel, Model model) {
-        UserModel authenticated = userService.authenticate(userModel.getEmail(), userModel.getPassword());
+    public String login(@ModelAttribute UserModel userModel, HttpSession session) {
+        UserModel authenticatedUser = userService.authenticate(userModel.getEmail(), userModel.getPassword());
 
-        if (authenticated != null) {
-            model.addAttribute("email", authenticated.getEmail());
-            return new RedirectView("/user/personal_page");
+        if (authenticatedUser == null) {
+            return "redirect:/error";
         } else {
-            return new RedirectView("/error");
+            session.setAttribute("user", authenticatedUser);
+            return "redirect:/user";
         }
-    }
-
-    @GetMapping("/personal_page")
-    public String personalPage() {
-        return getPathFormatter().getPageNameWithPath("personal_page");
     }
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerRequest", new UserModel());
-        return getPathFormatter().getPageNameWithPath("register");
+        return getPathFormatter().getPageNameWithPath("register_page");
     }
 
     @PostMapping("/register")
-    public RedirectView register(@ModelAttribute UserModel userModel) {
+    public String register(@ModelAttribute UserModel userModel) {
         UserModel registerUser = userService.registerUser(userModel.getName(), userModel.getLastName(),  userModel.getEmail(), userModel.getPassword());
+
         if (registerUser == null) {
-            return new RedirectView("/error");
+            return "redirect:/error";
         } else {
-            return new RedirectView("/user/login");
+            return "redirect:/user/login";
         }
     }
 }
