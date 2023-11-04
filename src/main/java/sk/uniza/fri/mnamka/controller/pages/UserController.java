@@ -56,6 +56,18 @@ public class UserController extends PageController {
         }
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        UserModel loggedUser = (UserModel) session.getAttribute("user");
+
+        if (loggedUser == null) {
+            return "redirect:/error";
+        } else {
+            session.removeAttribute("user");
+            return "redirect:/home";
+        }
+    }
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerRequest", new UserModel());
