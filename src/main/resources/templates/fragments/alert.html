@@ -1,0 +1,21 @@
+<link th:href="@{/css/fragments/alert.css}" rel="stylesheet" type="text/css">
+
+<div class="alert" th:if="${success}" style="border-color: var(--color-success)">
+	<img class="icon" th:src="@{/images/icons/success.gif}">
+	<span class="text" th:text="${success}" style="color: var(--color-success)"></span>
+</div>
+
+<div class="alert" th:if="${failure}" style="border-color: var(--color-failure)">
+	<img class="icon" th:src="@{/images/icons/failure.gif}">
+	<span class="text" th:text="${failure}" style="color: var(--color-failure)"></span>
+</div>
+
+<div class="alert" th:if="${warning}" style="border-color: var(--color-warning)">
+	<img class="icon" th:src="@{/images/icons/warning.gif}">
+	<span class="text" th:text="${warning}" style="color: var(--color-warning)"></span>
+</div>
+
+<div class="alert" th:if="${info}" style="border-color: var(--color-info)">
+	<img class="icon" th:src="@{/images/icons/info.gif}">
+	<span class="text" th:text="${info}" style="color: var(--color-info)"></span>
+</div>
