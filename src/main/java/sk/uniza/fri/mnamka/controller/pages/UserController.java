@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sk.uniza.fri.mnamka.controller.PageController;
+import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.helper.PathFormatter;
 import sk.uniza.fri.mnamka.model.UserModel;
 import sk.uniza.fri.mnamka.service.UserService;
@@ -45,14 +47,19 @@ public class UserController extends PageController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserModel userModel, HttpSession session) {
-        UserModel authenticatedUser = userService.authenticate(userModel.getEmail(), userModel.getPassword());
-
-        if (authenticatedUser == null) {
-            return "redirect:/error";
-        } else {
-            session.setAttribute("user", authenticatedUser);
-            return "redirect:/user";
+    public String login(@ModelAttribute UserModel userModel, HttpSession session, RedirectAttributes redirectAttributes) {
+        try {
+            UserModel authenticatedUser = userService.authenticate(userModel.getEmail(), userModel.getPassword());
+            if (authenticatedUser == null) {
+                return "redirect:/error";
+            }
+            else {
+                session.setAttribute("user", authenticatedUser);
+                return "redirect:/user";
+            }
+        } catch (UserException.InvalidCredentialsException exception) {
+            redirectAttributes.addFlashAttribute("failure", "Nesprávny email alebo heslo! Skúste znovu prosím.");
+            return "redirect:/user/login";
         }
     }
 
