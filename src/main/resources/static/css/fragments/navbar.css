@@ -36,6 +36,33 @@
     text-align: center;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown .navigation-bar-item {
+    font-size: var(--font-small-medium);
+}
+
 /* RESPONSIVE DESIGN FOR SMALLER BROWSERS */
 @media (max-width: 800px) {
     .navigation-bar .middle-link {
@@ -58,11 +85,14 @@
     }
 
     .navigation-bar-item {
-        text-align: center; /* Center-align the content horizontally */
+        text-align: center;
     }
 
     .middle-link {
-        display: inline-block; /* Make the link a block-level element */
+        display: inline-block;
     }
 
+    .show-dropdown-btn.button-small {
+        margin-top: 10px;
+    }
 }

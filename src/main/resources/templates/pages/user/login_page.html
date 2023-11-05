@@ -9,6 +9,7 @@
 	<div class="content-wrap centered with-image-background">
 		<div class="content auth-page">
 			<form class="auth-form" method="post" th:action="@{/user/login}" th:object="${loginRequest}">
+				<th:block th:insert="~{fragments/alert}"></th:block>
 				<input name="email" type="email" placeholder="Email" required/>
 				<input name="password" type="password" placeholder="Heslo" required/>
 				<button name="login" type="submit" class="button-small">Prihlásenie</button>

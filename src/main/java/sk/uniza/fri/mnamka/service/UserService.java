@@ -1,10 +1,12 @@
 package sk.uniza.fri.mnamka.service;
 
 import org.springframework.stereotype.Service;
+import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.model.UserModel;
 import sk.uniza.fri.mnamka.repository.UserRepository;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -16,8 +18,11 @@ public class UserService {
     }
 
     public UserModel registerUser(String name, String lastName, String email, String password) {
-        UserModel userModel = new UserModel();
+        if (userRepository.existsByEmail(email)) {
+            throw new UserException.EmailAlreadyExistsException(email);
+        }
 
+        UserModel userModel = new UserModel();
         userModel.setEmail(email);
         userModel.setName(name);
         userModel.setLastName(lastName);
@@ -32,7 +37,13 @@ public class UserService {
     }
 
     public UserModel authenticate(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password).orElse(null);
+        Optional<UserModel> user = userRepository.findByEmailAndPassword(email, password);
+
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new UserException.InvalidCredentialsException(email, password);
+        }
     }
 
 }
