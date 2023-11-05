@@ -18,8 +18,11 @@ public class UserService {
     }
 
     public UserModel registerUser(String name, String lastName, String email, String password) {
-        UserModel userModel = new UserModel();
+        if (userRepository.existsByEmail(email)) {
+            throw new UserException.EmailAlreadyExistsException(email);
+        }
 
+        UserModel userModel = new UserModel();
         userModel.setEmail(email);
         userModel.setName(name);
         userModel.setLastName(lastName);

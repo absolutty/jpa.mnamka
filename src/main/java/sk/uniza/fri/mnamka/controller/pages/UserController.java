@@ -82,13 +82,17 @@ public class UserController extends PageController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserModel userModel) {
-        UserModel registerUser = userService.registerUser(userModel.getName(), userModel.getLastName(),  userModel.getEmail(), userModel.getPassword());
-
-        if (registerUser == null) {
-            return "redirect:/error";
-        } else {
-            return "redirect:/user/login";
+    public String register(@ModelAttribute UserModel userModel, RedirectAttributes redirectAttributes) {
+        try {
+            UserModel registerUser = userService.registerUser(userModel.getName(), userModel.getLastName(),  userModel.getEmail(), userModel.getPassword());
+            if (registerUser == null) {
+                return "redirect:/error";
+            } else {
+                return "redirect:/user/login";
+            }
+        } catch (UserException.EmailAlreadyExistsException exception) {
+            redirectAttributes.addFlashAttribute("failure", "Zadany email uz existuje! Skuste sa prihlásiť.");
+            return "redirect:/user/register";
         }
     }
 }

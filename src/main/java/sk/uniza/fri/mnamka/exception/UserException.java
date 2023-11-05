@@ -8,4 +8,10 @@ public class UserException {
         }
     }
 
+    public static class EmailAlreadyExistsException  extends RuntimeException {
+        public EmailAlreadyExistsException (String email) {
+            super(String.format("This email already exists in database. [%s]", email));
+        }
+    }
+
 }
