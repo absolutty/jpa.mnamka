@@ -8,14 +8,14 @@ import java.util.Objects;
 @Table(name = "allergens")
 public class AllergenModel {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long allergen_id;
     @Column(unique = true, nullable = false) private String name;
 
-    public Long getId() {
-        return id;
+    public Long getAllergen_id() {
+        return allergen_id;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setAllergen_id(Long id) {
+        this.allergen_id = id;
     }
 
     public String getName() {
@@ -30,18 +30,18 @@ public class AllergenModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AllergenModel that = (AllergenModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        return Objects.equals(allergen_id, that.allergen_id) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(allergen_id, name);
     }
 
     @Override
     public String toString() {
         return "AllergenModel{" +
-                "id=" + id +
+                "id=" + allergen_id +
                 ", name='" + name + '\'' +
                 '}';
     }
