@@ -3,24 +3,23 @@ package sk.uniza.fri.mnamka.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "foods")
 public class FoodModel {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long food_id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String name;
     private Double price;
     private String description;
     @ManyToOne @JoinColumn(name = "food_type_id") private FoodTypeModel type;
     private String measurement;
 
-    public Long getFood_id() {
-        return food_id;
+    public Long getId() {
+        return id;
     }
-    public void setFood_id(Long food_id) {
-        this.food_id = food_id;
+    public void setId(Long food_id) {
+        this.id = food_id;
     }
 
     public String getName() {
@@ -63,18 +62,18 @@ public class FoodModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FoodModel foodModel = (FoodModel) o;
-        return Objects.equals(food_id, foodModel.food_id) && Objects.equals(name, foodModel.name) && Objects.equals(price, foodModel.price) && Objects.equals(description, foodModel.description) && Objects.equals(type, foodModel.type) && Objects.equals(measurement, foodModel.measurement);
+        return Objects.equals(id, foodModel.id) && Objects.equals(name, foodModel.name) && Objects.equals(price, foodModel.price) && Objects.equals(description, foodModel.description) && Objects.equals(type, foodModel.type) && Objects.equals(measurement, foodModel.measurement);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(food_id, name, price, description, type, measurement);
+        return Objects.hash(id, name, price, description, type, measurement);
     }
 
     @Override
     public String toString() {
         return "FoodModel{" +
-                "food_id=" + food_id +
+                "food_id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
