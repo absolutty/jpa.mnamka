@@ -5,5 +5,18 @@
 </head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav><h1>Menu Page</h1>
+	<table>
+		<tr th:each="element : ${categorizedFood}">
+			<td th:text="${element.key}">keyvalue</td>
+			<table style="border: 1px red solid">
+				<tr th:each="anews : ${element.value}">
+					<td th:text="${anews.name}"></td>
+					<td th:text="${anews.price}"></td>
+					<td th:text="${anews.description}"></td>
+					<td th:text="${anews.measurement}"></td>
+				</tr>
+			</table>
+		</tr>
+	</table>
 </body>
 </html>
