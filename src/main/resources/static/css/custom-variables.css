@@ -79,6 +79,21 @@ a:hover, a:active, a:focus {
     color: var(--color-brown);
 }
 
+a.second-type-link {
+    font-size: var(--font-medium);
+    color: var(--color-black);
+    font-weight: bold;
+    text-transform: uppercase;
+    min-width: 200px;
+    padding: 10px 0 10px 0;
+}
+
+a.second-type-link:hover, a.second-type-link:active, a.second-type-link:focus {
+    color: var(--color-brown);
+    text-decoration: none;
+    border: 2px var(--color-brown) solid;
+}
+
 /* TITLES */
 h1 {
     font-weight: bolder;
@@ -88,6 +103,12 @@ h2 {
 }
 
 /* CONTENT */
+.content-wrap {
+    margin-left: 16px;
+    margin-top: 16px;
+    margin-right: 16px;
+}
+
 .content-wrap.centered {
     margin-left: 16px;
     margin-right: 16px;

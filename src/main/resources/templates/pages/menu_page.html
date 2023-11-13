@@ -2,21 +2,51 @@
 <html>
 <head title="Menu page" >
 	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/menu.css}" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<nav th:replace="~{fragments/navbar}"></nav><h1>Menu Page</h1>
-	<table>
-		<tr th:each="element : ${categorizedFood}">
-			<td th:text="${element.key}">keyvalue</td>
-			<table style="border: 1px red solid">
-				<tr th:each="anews : ${element.value}">
-					<td th:text="${anews.name}"></td>
-					<td th:text="${anews.price}"></td>
-					<td th:text="${anews.description}"></td>
-					<td th:text="${anews.measurement}"></td>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+	<div class="content-wrap">
+		<div class="content menu-page">
+			<div class="grid container">
+				<div class="row">
+					<div class="col-md-8 order-md-1 order-2">
+						<div class="row h-100">
+							<div class="col-md-6">
+								<img class="image" src="/images/pizza.jpg">
+							</div>
+							<div class="col-md-6">
+								<img class="image" src="/images/pasta.jpg">
+							</div>
+						</div>
+					</div>
+					<div class="menu-navigation col-md-4 order-md-2 order-1">
+						<a class="second-type-link" th:href="'#' + ${element.key.food_type_id}" th:each="element : ${categorizedFood}" th:text="${element.key.name}"></a>
+						<a th:href="@{/about}">
+							<button class="grid-item button-large">
+								Prečítaj si viacej o nás
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<table>
+				<tr th:each="element : ${categorizedFood}">
+					<td th:text="${element.key.name}"></td>
+					<table th:id="${element.key.food_type_id}" style="border: 1px red solid">
+						<tr th:each="anews : ${element.value}">
+							<td th:text="${anews.name}"></td>
+							<td th:text="${anews.price}"></td>
+							<td th:text="${anews.description}"></td>
+							<td th:text="${anews.measurement}"></td>
+						</tr>
+					</table>
 				</tr>
 			</table>
-		</tr>
-	</table>
+		</div>
+	</div>
 </body>
 </html>

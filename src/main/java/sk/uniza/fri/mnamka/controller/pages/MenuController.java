@@ -30,9 +30,9 @@ public class MenuController extends PageController {
     public String getMenuPage(Model model) {
         List<FoodTypeModel> availableFoodTypes = foodTypeService.getAllFoodTypes();
 
-        Map<String, List<FoodModel>> categorizedFood = availableFoodTypes.stream()
+        Map<FoodTypeModel, List<FoodModel>> categorizedFood = availableFoodTypes.stream()
                 .collect(Collectors.toMap(
-                        FoodTypeModel::getName,
+                        foodType -> foodType,
                         foodService::getFoodsOfType
                 ));
         model.addAttribute("categorizedFood", categorizedFood);
