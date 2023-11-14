@@ -1,0 +1,28 @@
+/* BEGIN - Top menu navigation */
+.menu-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.menu-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* END - Top menu navigation */
+
+/* BEGIN - Food categories and foods */
+.food-category .title {
+    text-align: center;
+    margin: 16px;
+}
+.food {
+    max-width: 960px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.add-to-cart {
+    height: 36px;
+}
+/* END - Food categories and foods */
