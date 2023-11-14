@@ -35,6 +35,12 @@ a, input, p, h1, h2 {
 }
 
 /* ----------- commonly used styles ----------- */
+/* if I use #link on page, scroll animation */
+html {
+    scroll-behavior: smooth;
+}
+
+
 /* common BUTTON */
 button {
     font-family: var(--secondary-font);

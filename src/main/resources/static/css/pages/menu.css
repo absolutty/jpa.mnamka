@@ -1,7 +1,3 @@
-html {
-    scroll-behavior: smooth;
-}
-
 /* BEGIN - Top menu navigation */
 .menu-navigation {
     display: flex;
