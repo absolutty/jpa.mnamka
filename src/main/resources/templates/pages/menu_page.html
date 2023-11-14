@@ -39,7 +39,7 @@
 				<div class="food card mx-auto mb-3" th:each="food : ${element.value}">
 					<div class="row g-0">
 						<div class="col-4">
-							<img src="https://www.3vio.sk/wp-content/uploads/2022/09/13.jpg" class="img-fluid rounded-start">
+							<img th:src="${food.img_url}" class="img-fluid rounded-start">
 						</div>
 						<div class="col-8">
 							<div class="card-body">

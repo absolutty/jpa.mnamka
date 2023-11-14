@@ -14,6 +14,7 @@ public class FoodModel {
     private String description;
     @ManyToOne @JoinColumn(name = "food_type_id") private FoodTypeModel type;
     private String measurement;
+    private String img_url;
 
     public Long getId() {
         return id;
@@ -57,28 +58,36 @@ public class FoodModel {
         this.measurement = measurement;
     }
 
+    public String getImg_url() {
+        return img_url;
+    }
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FoodModel foodModel = (FoodModel) o;
-        return Objects.equals(id, foodModel.id) && Objects.equals(name, foodModel.name) && Objects.equals(price, foodModel.price) && Objects.equals(description, foodModel.description) && Objects.equals(type, foodModel.type) && Objects.equals(measurement, foodModel.measurement);
+        return Objects.equals(id, foodModel.id) && Objects.equals(name, foodModel.name) && Objects.equals(price, foodModel.price) && Objects.equals(description, foodModel.description) && Objects.equals(type, foodModel.type) && Objects.equals(measurement, foodModel.measurement) && Objects.equals(img_url, foodModel.img_url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, description, type, measurement);
+        return Objects.hash(id, name, price, description, type, measurement, img_url);
     }
 
     @Override
     public String toString() {
         return "FoodModel{" +
-                "food_id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", type=" + type +
                 ", measurement='" + measurement + '\'' +
+                ", img_url='" + img_url + '\'' +
                 '}';
     }
 
