@@ -42,7 +42,8 @@ public class SecurityConfig {
 
         http
                 .formLogin()
-                .loginPage("/login");
+                .loginPage("/login")
+                .failureUrl("/login-error");
 
         return http.build();
     }

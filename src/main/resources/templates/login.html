@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Login</title>
+<head title="Login page" >
+	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/user/user.css}" rel="stylesheet" type="text/css" >
 </head>
 <body>
-<h1>Login</h1>
-<p th:if="${param.error}" class="error">Wrong email or password</p>
-<form th:action="@{/login}" method="post">
-	<label for="email">Email</label>:
-	<input type="text" id="email" name="username" autofocus="autofocus" /> <br />
-	<label for="password">Password</label>:
-	<input type="password" id="password" name="password" /> <br />
-	<input type="submit" value="Log in" />
-</form>
+<nav th:replace="~{fragments/navbar}"></nav>
+<div class="content-wrap centered with-image-background">
+	<div class="content auth-page">
+		<form class="auth-form" method="post" th:action="@{/login}">
+			<th:block th:insert="~{fragments/alert}"></th:block>
+			<input name="username" type="email" placeholder="Email" required/>
+			<input name="password" type="password" placeholder="Heslo" required/>
+			<button name="login" type="submit" class="button-small">Prihlásenie</button>
+			<p>Nemáš ešte účet?
+				<a th:href="@{/register}">Registruj sa tu</a>
+			</p>
+		</form>
+	</div>
+</div>
 </body>
 </html>

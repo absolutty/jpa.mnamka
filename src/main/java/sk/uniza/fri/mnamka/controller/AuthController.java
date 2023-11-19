@@ -11,9 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sk.uniza.fri.mnamka.model.User;
 import sk.uniza.fri.mnamka.service.UserService;
 
@@ -33,6 +32,12 @@ public class AuthController {
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(){
         return "login";
+    }
+
+    @RequestMapping("/login-error")
+    public String loginError(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("failure", "Nesprávny email alebo heslo! Skúste znovu prosím.");
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
