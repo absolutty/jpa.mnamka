@@ -4,16 +4,7 @@
 		<li class="navigation-bar-item"><a th:href="@{/menu}">Menu</a></li>
 		<li class="navigation-bar-item"><a class=middle-link th:href="@{/home}">Mňamka</a></li>
 		<li class="navigation-bar-item"><a th:href="@{/contact}">Kontakt</a></li>
-		<li class="navigation-bar-item" th:with="userSession=${session.user}">
-			<div th:if="${userSession}" class="dropdown">
-				<button class="show-dropdown-btn button-small" th:text="${userSession.email}"></button>
-				<div class="dropdown-content">
-					<a class="dropdown navigation-bar-item" th:href="@{/user}">O mne</a>
-					<a class="dropdown navigation-bar-item" th:href="@{/user/logout}">Odhlásenie</a>
-				</div>
-			</div>
-			<a th:unless="${userSession}" th:href="@{/user}">Prihlás sa</a>
-		</li>
+		<li class="navigation-bar-item"><a th:href="@{/user}">Prihlás sa</a></li>
 	</ul>
 </nav>
 <script src="/javascript/fragments/navbar.js"></script>
