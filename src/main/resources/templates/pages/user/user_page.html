@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head title="User page" >
 	<th:block th:insert="~{fragments/head}" />
 </head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
 	<h1>User Profile</h1>
-	<div th:with="userSession=${session.user}">
-		<p th:if="${userSession}" th:text="'Email: ' + ${userSession.email}"></p>
-		<p th:if="${userSession}" th:text="'Name: ' + ${userSession.name}"></p>
-		<p th:if="${userSession}" th:text="'LastName: ' + ${userSession.lastName}"></p>
-		<p th:if="${userSession}" th:text="'date of registration: ' + ${userSession.dateOfRegistration}"></p>
+	<div sec:authorize="isAuthenticated()">
+		User IS logged in.
+	</div>
+	<div sec:authorize="isAnonymous()">
+		User IS NOT logged in.
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		ADMIN
+	</div>
+	<div sec:authorize="hasRole('ROLE_USER')">
+		USER
 	</div>
 </body>
 </html>
