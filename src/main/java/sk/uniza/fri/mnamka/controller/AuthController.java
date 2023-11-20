@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -40,6 +41,12 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    @RequestMapping("/registerEmailAlreadyExists")
+    public String registerError(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("failure", "Tento email uz existuje!");
+        return "redirect:/register";
+    }
+
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -52,7 +59,7 @@ public class AuthController {
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String register(HttpServletRequest request, HttpServletResponse response, Model model){
         User user = new User();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "register";
     }
 
@@ -76,8 +83,8 @@ public class AuthController {
 
             return "redirect:/";
 
-        } catch (Exception e){
-            return "redirect:/register?error";
+        } catch (BadCredentialsException e){
+            return "redirect:/registerEmailAlreadyExists";
         }
 
     }

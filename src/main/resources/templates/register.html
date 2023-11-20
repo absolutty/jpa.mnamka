@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-  <title>Sign Up</title>
+<head title="Login page" >
+  <th:block th:insert="~{fragments/head}" />
+  <link th:href="@{/css/pages/user/user.css}" rel="stylesheet" type="text/css" >
 </head>
 <body>
-<h1>Sign Up</h1>
-<p th:if="${param.error}" class="error">Registration failed</p>
-<form th:action="@{/register}" method="post" th:object="${user}">
-  <label for="email">Email </label>:
-  <input type="text" id="email"  th:field="*{email}" /> <br />
-
-  <label for="password">Password </label>:
-  <input type="password" id="password" th:field="*{password}"/> <br />
-
-  <label for="first_name">First Name </label>:
-  <input type="text" id="first_name"  th:field="*{firstName}" /> <br />
-
-  <label for="last_name">Last Name </label>:
-  <input type="text" id="last_name"  th:field="*{lastName}" /> <br />
-
-  <input type="submit" value="Sign Up" /> <br />
-</form>
-
-<p>Already have an account? </p> <br/>
-<a href="/login">Login</a>
+<nav th:replace="~{fragments/navbar}"></nav>
+<div class="content-wrap centered with-image-background" style="background-image: url('/images/user-background.png')">
+  <div class="content auth-page">
+    <form class="auth-form" method="post" th:action="@{/register}" th:object="${user}">
+      <th:block th:insert="~{fragments/alert}"></th:block>
+      <input name="name" type="text" placeholder="Meno" th:field="*{firstName}" required/>
+      <input name="lastName" type="text" placeholder="Priezvisko" th:field="*{lastName}" required/>
+      <input name="email" type="email" placeholder="Email" th:field="*{email}" required/>
+      <input name="password" type="password" placeholder="Heslo" th:field="*{password}" required/>
+      <select name="gender" th:field="*{gender}">
+        <option value="" selected>Zvol si pohlavie...</option>
+        <option value="male">Muž</option>
+        <option value="female">Žena</option>
+      </select>
+      <button name="register" type="submit" class="button-small">Registrácia</button>
+      <p>Už máš vytvorený účet?
+        <a th:href="@{/login}">Prihlás sa tu</a>
+      </p>
+    </form>
+  </div>
+</div>
 </body>
 </html>
