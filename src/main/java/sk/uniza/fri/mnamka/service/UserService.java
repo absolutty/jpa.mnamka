@@ -23,4 +23,5 @@ public class UserService {
             throw new BadCredentialsException("Email to identify user already exists!");
         }
     }
+
 }

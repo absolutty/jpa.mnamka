@@ -41,12 +41,6 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @RequestMapping("/registerEmailAlreadyExists")
-    public String registerError(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("failure", "Tento email uz existuje!");
-        return "redirect:/register";
-    }
-
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -86,7 +80,13 @@ public class AuthController {
         } catch (BadCredentialsException e){
             return "redirect:/registerEmailAlreadyExists";
         }
+    }
 
+
+    @RequestMapping("/registerEmailAlreadyExists")
+    public String registerError(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("failure", "Tento email uz existuje!");
+        return "redirect:/register";
     }
 
 }
