@@ -1,13 +1,15 @@
 package sk.uniza.fri.mnamka.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import sk.uniza.fri.mnamka.model.UserModel;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import sk.uniza.fri.mnamka.model.User;
 
-import java.util.Optional;
+@Repository
+public interface UserRepository extends JpaRepository<User,Long> {
 
-public interface UserRepository extends JpaRepository<UserModel, Integer> {
-
-    Optional<UserModel> findByEmailAndPassword(String email, String password);
-    boolean existsByEmail(String email);
+    @Query("SELECT u FROM User u WHERE u.email = :email")
+    User findUserByEmail(@Param("email") String email);
 
 }

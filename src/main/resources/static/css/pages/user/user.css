@@ -23,13 +23,23 @@ html, body {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     max-height: 100%;
 }
-.auth-form input {
+.auth-form input,select {
     border: 2px outset var(--color-brown);
     font-size: var(--font-small);
     width: 100%;
     box-sizing: border-box;
     margin: 0 0 15px 0;
     padding: 15px;
+}
+
+select option {
+    color: black;
+}
+select option:first-child {
+    color: grey;
+}
+select.empty {
+    color: grey;
 }
 
 /* RESPONSIVE DESIGN FOR SMARTPHONES */
