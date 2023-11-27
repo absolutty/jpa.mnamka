@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "USERS")
 public class User {
 
+    public static final String ROLE_USER = "USER";
+    public static final String ROLE_ADMIN = "ADMIN";
+
     @Id @Column(name = "ID")
     @GeneratedValue(strategy= GenerationType.IDENTITY) private Long id;
     @Column(name = "EMAIL") private String email;

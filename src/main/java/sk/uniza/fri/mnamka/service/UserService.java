@@ -13,6 +13,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User authenticateUser(User user) {
+        User userFromDatabase = userRepository.userAuthentication(user.getEmail(), user.getPassword());
+        if (userFromDatabase == null) {
+            throw new BadCredentialsException("Not correct user credentials!");
+        } else {
+            return userFromDatabase;
+        }
+    }
+
     public User createUser(User user){
         User existingUser = userRepository.findUserByEmail(user.getEmail());
         if (existingUser == null) {

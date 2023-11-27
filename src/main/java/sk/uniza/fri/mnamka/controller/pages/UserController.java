@@ -1,10 +1,11 @@
 package sk.uniza.fri.mnamka.controller.pages;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sk.uniza.fri.mnamka.controller.Authenticator;
 import sk.uniza.fri.mnamka.controller.PageController;
+import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.helper.PathFormatter;
 
 @Controller
@@ -17,8 +18,12 @@ public class UserController extends PageController {
     }
 
     @GetMapping
-    public String getUserPage(HttpSession session) {
-        return getPathFormatter().getPageNameWithPath("user_page");
+    public String getUserPage() {
+        if (Authenticator.isUserLoggedIn()) {
+            return getPathFormatter().getPageNameWithPath("user_page");
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
     }
 
 }
