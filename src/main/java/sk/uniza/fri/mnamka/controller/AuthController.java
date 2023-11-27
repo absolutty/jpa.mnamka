@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sk.uniza.fri.mnamka.helper.Authenticator;
 import sk.uniza.fri.mnamka.model.User;
 import sk.uniza.fri.mnamka.service.UserService;
 

@@ -1,4 +1,4 @@
-package sk.uniza.fri.mnamka.controller;
+package sk.uniza.fri.mnamka.helper;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,8 +34,11 @@ public class Authenticator {
                 (!authentication.getName().equals("anonymousUser"));
     }
 
-//    public static boolean isUserLoggedInAdmin() {
-//        return authentication.isAuthenticated() && authentication.getName().equals(User.ROLE_ADMIN);
-//    }
+    public static boolean isUserLoggedInAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return  isUserLoggedIn() &&
+                authentication.getAuthorities().stream().anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
+    }
 
 }
