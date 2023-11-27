@@ -23,8 +23,8 @@ public class UserService {
     }
 
     public User createUser(User user){
-        User existingUser = userRepository.findUserByEmail(user.getEmail());
-        if (existingUser == null) {
+        User userFromDatabase = userRepository.findUserByEmail(user.getEmail());
+        if (userFromDatabase == null) {
             User newUser = userRepository.save(user);
             userRepository.flush();
             return newUser;
