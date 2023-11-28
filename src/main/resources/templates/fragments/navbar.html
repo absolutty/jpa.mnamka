@@ -13,7 +13,7 @@
 				<div class="dropdown-content">
 					<a class="dropdown navigation-bar-item" th:href="@{/user}">O mne</a>
 					<div sec:authorize="hasRole('ROLE_ADMIN')">
-						<a class="dropdown navigation-bar-item" th:href="@{/user/admin}">Admin</a>
+						<a class="dropdown navigation-bar-item" th:href="@{/admin}">Admin</a>
 					</div>
 					<a class="dropdown navigation-bar-item" th:href="@{/logout}">Odhlásenie</a>
 				</div>
