@@ -1,0 +1,41 @@
+<div class="modal fade" id="deleteUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteUserModalLabel">Vymazanie používateľa: <strong th:text="${userToBeDeleted.email}"></strong></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Naozaj si praješ vymazať tohto používateľa?</h5>
+                <form method="post" th:action="@{/user/admin/deleteUser}">
+                    <!--     USERs ID     -->
+                    <div class="row mb-3">
+                        <label for="userId" class="col-sm-2 col-form-label">Id</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="userId" th:value="${userToBeDeleted.id}" th:field="*{userToBeDeleted.id}" readonly>
+                        </div>
+                    </div>
+                    <!--     USERs EMAIL     -->
+                    <div class="row mb-3">
+                        <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="userEmail" th:value="${userToBeDeleted.email}" th:field="*{userToBeDeleted.email}" readonly>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
+                    <button type="submit" class="btn btn-primary">Vymaž</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteUserModal = new bootstrap.Modal('#deleteUserModal');
+        if (deleteUserModal) {
+            deleteUserModal.show();
+        }
+    });
+</script>

@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sk.uniza.fri.mnamka.helper.FieldValidator;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements FieldValidator {
 
     public static final String ROLE_USER = "USER";
     public static final String ROLE_ADMIN = "ADMIN";
@@ -29,6 +30,14 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Override
+    public boolean anyRequiredFieldIsEmpty() {
+        return  (email == null || email.isEmpty()) ||
+                (password == null || password.isEmpty()) ||
+                (firstName == null || firstName.isEmpty()) ||
+                (lastName == null || lastName.isEmpty());
     }
 
 }
