@@ -11,8 +11,9 @@
 <nav th:replace="~{fragments/navbar}"></nav>
 <div class="content-wrap">
 	<div class="content admin-page">
-
+		<th:block th:insert="~{fragments/alert}"></th:block>
 		<div class="accordion" id="accordionParent">
+			<!--	EDITUJ POUŽÍVATELOV		-->
 			<div class="accordion-item">
 				<h2 class="accordion-header">
 					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsableEditUsers" aria-expanded="true" aria-controls="collapsableEditUsers">
@@ -37,13 +38,48 @@
 					</div>
 				</div>
 			</div>
-			<!-- Modal of user being EDITED -->
 			<th:block th:if="${userToBeEdited != null}">
+				<!-- Modal of user being EDITED -->
 				<div th:replace="~{pages/user/edit/users/editUsers_modal}"></div>
 			</th:block>
-			<!-- Modal of user being DELETED -->
 			<th:block th:if="${userToBeDeleted != null}">
+				<!-- Modal of user being DELETED -->
 				<div th:replace="~{pages/user/edit/users/deleteUsers_modal}"></div>
+			</th:block>
+
+
+			<!--	EDITUJ FOOD TYPES	-->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsableEditFoodtypes" aria-expanded="true" aria-controls="collapsableEditFoodtypes">
+						Edituj typy jedál
+					</button>
+				</h2>
+				<div id="collapsableEditFoodtypes" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
+					<div class="accordion-body">
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center" th:each="foodtypeIndentifier : ${foodsTypesIdentifiers}">
+								<h5 th:text="${foodtypeIndentifier}"></h5>
+								<div class="d-flex">
+									<a th:href="@{/admin/foodtypes/edit(name=${foodtypeIndentifier})}" class="actionIcon ml-2">
+										<img class="actionIcon ml-2" th:src="@{/images/icons/edit.gif}" alt="Edit">
+									</a>
+									<a th:href="@{/admin/foodtypes/delete(name=${foodtypeIndentifier})}" class="actionIcon ml-2">
+										<img class="actionIcon ml-2" th:src="@{/images/icons/delete.gif}">
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<th:block th:if="${foodTypeToBeEdited != null}">
+				<!-- Modal of foodType being EDITED -->
+				<div th:replace="~{pages/user/edit/foodtypes/editFoodtypes_modal}"></div>
+			</th:block>
+			<th:block th:if="${foodTypeToBeDeleted!= null}">
+				<!-- Modal of foodType being DELETED -->
+				<div th:replace="~{/pages/user/edit/foodtypes/deleteFoodtypes_modal}"></div>
 			</th:block>
 		</div>
 	</div>
