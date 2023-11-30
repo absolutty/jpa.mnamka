@@ -7,17 +7,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.helper.Authenticator;
 import sk.uniza.fri.mnamka.model.FoodModel;
-import sk.uniza.fri.mnamka.service.FoodService;
-import sk.uniza.fri.mnamka.service.FoodTypeService;
-import sk.uniza.fri.mnamka.service.UserService;
 
 @Controller
 @RequestMapping("/admin/foods")
 public class EditFoodController extends AdminController {
-
-    public EditFoodController(UserService userService, FoodTypeService foodTypeService, FoodService foodService) {
-        super(userService, foodTypeService, foodService);
-    }
 
     @GetMapping("/edit")
     public String showEditFoodForm(@RequestParam("id") Long id, Model model) {

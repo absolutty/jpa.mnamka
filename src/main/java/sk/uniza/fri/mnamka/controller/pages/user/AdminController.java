@@ -22,30 +22,9 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController extends PageController {
 
-    protected UserService userService;
-    protected FoodTypeService foodTypeService;
-    protected FoodService foodService;
-
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
-
-    public AdminController(UserService userService, FoodTypeService foodTypeService) {
-        this.userService = userService;
-        this.foodTypeService = foodTypeService;
-    }
-
-    public AdminController(UserService userService, FoodService foodService) {
-        this.userService = userService;
-        this.foodService = foodService;
-    }
-
-    @Autowired
-    public AdminController(UserService userService, FoodTypeService foodTypeService, FoodService foodService) {
-        this.userService = userService;
-        this.foodTypeService = foodTypeService;
-        this.foodService = foodService;
-    }
+    @Autowired protected UserService userService;
+    @Autowired protected FoodTypeService foodTypeService;
+    @Autowired protected FoodService foodService;
 
     @Override
     public PathFormatter getPathFormatter() {
@@ -55,7 +34,7 @@ public class AdminController extends PageController {
     @GetMapping
     public String getAdminPage(Model model) {
         if (Authenticator.isUserLoggedInAdmin()) {
-           setFormAttributes(model);
+            setFormAttributes(model);
 
             return getPathFormatter().getPageNameWithPath("admin_page");
         } else {

@@ -6,17 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.helper.Authenticator;
 import sk.uniza.fri.mnamka.model.User;
-import sk.uniza.fri.mnamka.service.UserService;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/users")
 public class EditUserController extends AdminController {
-
-    public EditUserController(UserService userService) {
-        super(userService);
-    }
 
     @GetMapping("/edit")
     public String showEditUserForm(@RequestParam("email") String userEmail, Model model) {
