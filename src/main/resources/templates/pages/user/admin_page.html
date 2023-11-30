@@ -20,7 +20,7 @@
 						Edituj používateľov
 					</button>
 				</h2>
-				<div id="collapsableEditUsers" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
+				<div id="collapsableEditUsers" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
 					<div class="accordion-body">
 						<ul class="list-group">
 							<li class="list-group-item d-flex justify-content-between align-items-center" th:each="userIdentifier : ${listUserIdentifiers}">
@@ -54,7 +54,7 @@
 						Edituj typy jedál
 					</button>
 				</h2>
-				<div id="collapsableEditFoodtypes" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
+				<div id="collapsableEditFoodtypes" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
 					<div class="accordion-body">
 						<ul class="list-group">
 							<li class="list-group-item d-flex justify-content-between align-items-center" th:each="foodtypeIndentifier : ${foodsTypesIdentifiers}">
@@ -88,7 +88,7 @@
 						Edituj jednotlivé jedlá
 					</button>
 				</h2>
-				<div id="collapseFoods" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
+				<div id="collapseFoods" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
 					<div class="accordion-body">
 						<div class="food-category" th:each="element : ${categorizedFood}">
 							<h2 class="title" th:id="${element.key.food_type_id}" th:text="${element.key.name}"></h2>
