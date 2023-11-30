@@ -19,4 +19,32 @@ public class FoodTypeService {
         return foodTypeRepository.findAllBy();
     }
 
+    public List<String> getFoodTypesIdentifiers() {
+        return foodTypeRepository.foodTypesNames();
+    }
+
+    public FoodTypeModel getFoodTypeByName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Given NAME is null!");
+        } else {
+            return foodTypeRepository.findFoodTypeByName(name);
+        }
+    }
+
+    public void updateExistingUser(FoodTypeModel foodType) {
+        if (foodType == null || foodType.anyRequiredFieldIsEmpty()) {
+            throw new IllegalArgumentException("Given USER is not correct!");
+        } else {
+            foodTypeRepository.updateFoodTypeWithId(foodType.getFood_type_id(), foodType.getName());
+        }
+    }
+
+    public void deleteExistingFoodType(FoodTypeModel foodType) {
+        if (foodType == null) {
+            throw new IllegalArgumentException("Given FOODTYPE null!");
+        } else {
+            foodTypeRepository.deleteFoodTypeWithIdAndName(foodType.getFood_type_id(), foodType.getName());
+        }
+    }
+
 }

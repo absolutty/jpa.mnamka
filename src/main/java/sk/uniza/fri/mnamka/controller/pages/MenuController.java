@@ -28,13 +28,10 @@ public class MenuController extends PageController {
 
     @GetMapping
     public String getMenuPage(Model model) {
-        List<FoodTypeModel> availableFoodTypes = foodTypeService.getAllFoodTypes();
+        List<FoodModel> availableFoods = foodService.getAllFoods();
 
-        Map<FoodTypeModel, List<FoodModel>> categorizedFood = availableFoodTypes.stream()
-                .collect(Collectors.toMap(
-                        foodType -> foodType,
-                        foodService::getFoodsOfType
-                ));
+        Map<FoodTypeModel, List<FoodModel>> categorizedFood = FoodService.categorizeFoodByFoodTypes(foodTypeService.getAllFoodTypes(), availableFoods);
+
         model.addAttribute("categorizedFood", categorizedFood);
 
         return getPathFormatter().getPageNameWithPath("menu_page");

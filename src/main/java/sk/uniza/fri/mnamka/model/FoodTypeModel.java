@@ -1,12 +1,13 @@
 package sk.uniza.fri.mnamka.model;
 
 import jakarta.persistence.*;
+import sk.uniza.fri.mnamka.helper.FieldValidator;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "food_types")
-public class FoodTypeModel {
+public class FoodTypeModel implements FieldValidator {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long food_type_id;
     @Column(unique = true, nullable = false) private String name;
@@ -44,6 +45,11 @@ public class FoodTypeModel {
                 "id=" + food_type_id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean anyRequiredFieldIsEmpty() {
+        return (name == null || name.isEmpty());
     }
 
 }

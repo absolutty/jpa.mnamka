@@ -29,20 +29,12 @@ public class SecurityConfig {
         return authenticationManagerBuilder.build();
     }
 
-    private final String[] permittedPages = { "/about", "/menu", "/", "/home","/contact" };
-    private final String[] permittedUserPages = { "/login**", "/register**", "/user" };
-    private final String[] permittedResources = { "/css/**", "/fonts/**", "/images/**", "/javascript/**" };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests()
-                .requestMatchers(ArrayHelper.mergeArrays(permittedPages, permittedUserPages, permittedResources)).permitAll()
-                .anyRequest().authenticated();
-
-        http
-                .formLogin()
+        http.formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/performLogin")
                 .failureUrl("/login-error");
 
         return http.build();

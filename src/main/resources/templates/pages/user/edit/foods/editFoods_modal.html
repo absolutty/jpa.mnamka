@@ -1,0 +1,83 @@
+<div class="modal fade" id="editFoodModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editFoodModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="editFoodModalLabel">Edituješ jedlo: <strong th:text="${foodToBeEdited.name}"></strong></h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="post" th:action="@{/admin/foods/edit}">
+					<!--     FOODSs ID     -->
+					<div class="row mb-3">
+						<label for="foodId" class="col-sm-2 col-form-label">Id</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" id="foodId" th:value="${foodToBeEdited.id}" th:field="*{foodToBeEdited.id}" readonly>
+						</div>
+					</div>
+					<!--     FOODs NAME     -->
+					<div class="row mb-3">
+						<label for="foodName" class="col-sm-2 col-form-label">Názov</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="foodName" th:value="${foodToBeEdited.name}" th:field="*{foodToBeEdited.name}" required>
+						</div>
+					</div>
+					<!-- FOODs DESCRIPTION -->
+					<div class="row mb-3">
+						<label for="foodDescription" class="col-sm-2 col-form-label">Popis</label>
+						<div class="col-sm-10">
+							<!-- Use a textarea with rows attribute -->
+							<textarea class="form-control" id="foodDescription" th:value="${foodToBeEdited.description}" th:field="*{foodToBeEdited.description}" required rows="3"></textarea>
+						</div>
+					</div>
+					<!--     FOODs MEASUREMENT     -->
+					<div class="row mb-3">
+						<label for="foodMeasurement" class="col-sm-2 col-form-label">Množstvo</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="foodMeasurement" th:value="${foodToBeEdited.measurement}" th:field="*{foodToBeEdited.measurement}" required>
+						</div>
+					</div>
+					<!--     FOODs PRICE     -->
+					<div class="row mb-3">
+						<label for="foodPrice" class="col-sm-2 col-form-label">Cena</label>
+						<div class="col-sm-10">
+							<div class="input-group mb-3">
+								<input type="number"  step="0.01" class="form-control" id="foodPrice" th:value="${foodToBeEdited.price}" th:field="*{foodToBeEdited.price}" aria-describedby="basic-addon2">
+								<div class="input-group-append">
+									<span class="input-group-text" id="basic-addon2">€</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- FOODs CATEGORY -->
+					<div class="row mb-3">
+						<label for="foodCategory" class="col-sm-2 col-form-label">Kategoria</label>
+						<div class="col-sm-10">
+							<select class="form-select" id="foodCategory" th:field="*{foodToBeEdited.type.food_type_id}">
+								<option th:each="type : ${foodTypes}" th:value="${type.food_type_id}" th:text="${type.name}"></option>
+							</select>
+						</div>
+					</div>
+					<!--     FOODs IMG_URL     -->
+					<div class="row mb-3">
+						<label for="foodImgUrl" class="col-sm-2 col-form-label">Img url</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="foodImgUrl" th:value="${foodToBeEdited.img_url}" th:field="*{foodToBeEdited.img_url}" required>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
+					<button type="submit" class="btn btn-primary">Ulož</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editFoodModal = new bootstrap.Modal('#editFoodModal');
+        if (editFoodModal) {
+            editFoodModal.show();
+        }
+    });
+</script>

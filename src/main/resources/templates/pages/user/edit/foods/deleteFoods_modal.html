@@ -1,0 +1,42 @@
+<!-- Delete Food Modal -->
+<div class="modal fade" id="deleteFoodModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteFoodModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="deleteFoodModalLabel">Vymazanie jedla: <strong th:text="${foodToBeDeleted.name}"></strong></h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h5>Naozaj si praješ vymazať toto jedlo?</h5>
+				<form method="post" th:action="@{/admin/foods/delete}">
+					<!-- FOODs ID -->
+					<div class="row mb-3">
+						<label for="foodId" class="col-sm-2 col-form-label">Id</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" id="foodId" th:value="${foodToBeDeleted.id}" th:field="*{foodToBeDeleted.id}" readonly>
+						</div>
+					</div>
+					<!-- FOODs NAME -->
+					<div class="row mb-3">
+						<label for="foodName" class="col-sm-2 col-form-label">Názov</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="foodName" th:value="${foodToBeDeleted.name}" th:field="*{foodToBeDeleted.name}" readonly>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
+					<button type="submit" class="btn btn-danger">Vymaž</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteFoodModal = new bootstrap.Modal('#deleteFoodModal');
+        if (deleteFoodModal) {
+            deleteFoodModal.show();
+        }
+    });
+</script>

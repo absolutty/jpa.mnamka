@@ -1,0 +1,83 @@
+<div class="modal fade" id="editUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editUserModalLabel">Edituješ používateľa: <strong th:text="${userToBeEdited.email}"></strong></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" th:action="@{/admin/users/edit}">
+          <!--     USERs ID     -->
+          <div class="row mb-3">
+            <label for="userId" class="col-sm-2 col-form-label">Id</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="userId" th:value="${userToBeEdited.id}" th:field="*{userToBeEdited.id}" readonly>
+            </div>
+          </div>
+          <!--     USERs EMAIL     -->
+          <div class="row mb-3">
+            <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="userEmail" th:value="${userToBeEdited.email}" th:field="*{userToBeEdited.email}" required>
+            </div>
+          </div>
+          <!--     USERs NAME     -->
+          <div class="row mb-3">
+            <label for="userName" class="col-sm-2 col-form-label">Meno</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="userName" th:value="${userToBeEdited.firstName}" th:field="*{userToBeEdited.firstName}" required>
+            </div>
+          </div>
+          <!--     USERs LASTNAME     -->
+          <div class="row mb-3">
+            <label for="lastName" class="col-sm-2 col-form-label">Priezvisko</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="lastName" th:value="${userToBeEdited.lastName}" th:field="*{userToBeEdited.lastName}" required>
+            </div>
+          </div>
+          <!--     USERs PASSWORD     -->
+          <div class="row mb-3">
+            <label for="password" class="col-sm-2 col-form-label">Heslo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="password" th:value="${userToBeEdited.password}" th:field="*{userToBeEdited.password}" required>
+            </div>
+          </div>
+          <!--     USERs GENDER     -->
+          <div class="row mb-3">
+            <label for="userGender" class="col-sm-2 col-form-label">Pohlavie</label>
+            <div class="col-sm-10">
+              <select class="form-select" id="userGender" th:field="*{userToBeEdited.gender}">
+                <option selected disabled value="">Choose...</option>
+                <option value="male" th:text="Muž" th:selected="${userToBeEdited != null and userToBeEdited.gender == 'male'}"></option>
+                <option value="female" th:text="Žena" th:selected="${userToBeEdited != null and userToBeEdited.gender == 'female'}"></option>
+              </select>
+            </div>
+          </div>
+          <!--     USERs ROLE     -->
+          <div class="row mb-3">
+            <label for="userRole" class="col-sm-2 col-form-label">Rola</label>
+            <div class="col-sm-10">
+              <select class="form-select" id="userRole" th:field="*{userToBeEdited.role}">
+                <option selected disabled value="">Choose...</option>
+                <option value="USER" th:text="USER" th:selected="${userToBeEdited != null and userToBeEdited.role == 'USER'}"></option>
+                <option value="ADMIN" th:text="ADMIN" th:selected="${userToBeEdited != null and userToBeEdited.role == 'ADMIN'}"></option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
+          <button type="submit" class="btn btn-primary">Ulož</button>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const editUserModal = new bootstrap.Modal('#editUserModal');
+    if (editUserModal) {
+      editUserModal.show();
+    }
+  });
+</script>

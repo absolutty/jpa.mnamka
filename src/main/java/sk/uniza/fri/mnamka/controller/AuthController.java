@@ -5,15 +5,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sk.uniza.fri.mnamka.helper.Authenticator;
 import sk.uniza.fri.mnamka.model.User;
 import sk.uniza.fri.mnamka.service.UserService;
 
@@ -23,16 +21,27 @@ import sk.uniza.fri.mnamka.service.UserService;
 public class AuthController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
+    private final Authenticator authenticator;
 
     public AuthController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
+        this.authenticator = new Authenticator(authenticationManager);
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(){
         return "login";
+    }
+
+    @PostMapping("/do-login")
+    public String performLogin(HttpServletRequest request, @ModelAttribute User user) {
+        try {
+            User authenticated = userService.authenticateUser(user);
+            authenticator.authentificateUserToSession(authenticated, request.getSession(true));
+            return "redirect:/home";
+        } catch (BadCredentialsException ex) {
+            return "redirect:/login-error";
+        }
     }
 
     @RequestMapping("/login-error")
@@ -59,21 +68,10 @@ public class AuthController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String createNewUser(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user")User user){
-
+        user.setRole("USER");
         try {
-
-            user.setRole("USER");
-
             User newUser = userService.createUser(user);
-            if(newUser == null){
-                return "redirect:/register?error";
-            }
-
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));
-            SecurityContext securityContext = SecurityContextHolder.getContext();
-            securityContext.setAuthentication(authentication);
-            HttpSession session = request.getSession(true);
-            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,securityContext);
+            authenticator.authentificateUserToSession(newUser, request.getSession(true));
 
             return "redirect:/";
 
