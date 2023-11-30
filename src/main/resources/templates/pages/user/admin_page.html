@@ -47,7 +47,6 @@
 				<div th:replace="~{pages/user/edit/users/deleteUsers_modal}"></div>
 			</th:block>
 
-
 			<!--	EDITUJ FOOD TYPES	-->
 			<div class="accordion-item">
 				<h2 class="accordion-header">
@@ -81,6 +80,48 @@
 				<!-- Modal of foodType being DELETED -->
 				<div th:replace="~{/pages/user/edit/foodtypes/deleteFoodtypes_modal}"></div>
 			</th:block>
+
+			<!--	EDITUJ FOODS	-->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFoods" aria-expanded="true" aria-controls="collapseFoods">
+						Edituj jednotlivé jedlá
+					</button>
+				</h2>
+				<div id="collapseFoods" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
+					<div class="accordion-body">
+						<div class="food-category" th:each="element : ${categorizedFood}">
+							<h2 class="title" th:id="${element.key.food_type_id}" th:text="${element.key.name}"></h2>
+
+
+							<ul class="list-group"  th:each="food : ${element.value}">
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<h5 th:text="${food.name}"></h5>
+									<div class="d-flex">
+										<a th:href="@{/admin/foods/edit(id=${food.id})}" class="actionIcon ml-2">
+											<img class="actionIcon ml-2" th:src="@{/images/icons/edit.gif}" alt="Edit">
+										</a>
+										<a th:href="@{/admin/foods/delete(id=${food.id})}" class="actionIcon ml-2">
+											<img class="actionIcon ml-2" th:src="@{/images/icons/delete.gif}">
+										</a>
+									</div>
+								</li>
+							</ul>
+
+
+						</div>
+					</div>
+				</div>
+				<th:block th:if="${foodToBeEdited != null}">
+					<!-- Modal of foodType being EDITED -->
+					<div th:replace="~{pages/user/edit/foods/editFoods_modal}"></div>
+				</th:block>
+				<th:block th:if="${foodToBeDeleted!= null}">
+					<!-- Modal of foodType being DELETED -->
+					<div th:replace="~{/pages/user/edit/foods/deleteFoods_modal}"></div>
+				</th:block>
+
+			</div>
 		</div>
 	</div>
 </div>
