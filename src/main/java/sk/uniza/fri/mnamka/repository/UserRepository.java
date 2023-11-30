@@ -13,11 +13,19 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    @Query("SELECT u FROM User u WHERE u.email = :email")
-    User findUserByEmail(@Param("email") String email);
-
+    /**
+     * Authenticates a user based on the provided email and password.
+     * This method queries the database for a user with the given email and password combination.
+     *
+     * @param email    The email of the user to authenticate.
+     * @param password The password of the user to authenticate.
+     * @return If authentication is successful, returns the authenticated User object; otherwise, returns null.
+     */
     @Query("SELECT u from User u WHERE u.email = :email AND u.password = :password")
     User userAuthentication(String email, String password);
+
+    @Query("SELECT u FROM User u WHERE u.email = :email")
+    User findUserByEmail(@Param("email") String email);
 
     @Query("SELECT u.email FROM User u ORDER BY u.id")
     List<String> userEmails();

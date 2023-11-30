@@ -12,15 +12,7 @@ import java.util.List;
 
 public interface FoodRepository extends JpaRepository<FoodModel, Integer> {
 
-    List<FoodModel> findAllByType(FoodTypeModel type);
-
     List<FoodModel> findAllBy();
-
-    @Query("SELECT f.name FROM FoodModel f ORDER BY f.id")
-    List<String> foodNames();
-
-    @Query("SELECT f FROM FoodModel f WHERE f.name = :name")
-    FoodModel findFoodByName(@Param("name") String name);
 
     FoodModel findFoodModelById(Long id);
 
