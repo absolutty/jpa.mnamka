@@ -15,7 +15,7 @@ public class EditFoodController extends AdminController {
     @GetMapping("/edit")
     public String showEditFoodForm(@RequestParam("id") Long id, Model model) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            setFormAttributes(model);
+            initializeCommonFormAttributes(model);
 
             FoodModel foodToBeEdited = foodService.getFoodById(id);
             model.addAttribute("foodToBeEdited", foodToBeEdited);
@@ -28,7 +28,7 @@ public class EditFoodController extends AdminController {
     @PostMapping("/edit")
     public String doEditFood(@ModelAttribute FoodModel newFood, Model model, RedirectAttributes redirectAttributes) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            setFormAttributes(model);
+            initializeCommonFormAttributes(model);
 
             foodService.updateExistingFood(newFood);
 
@@ -42,7 +42,7 @@ public class EditFoodController extends AdminController {
     @GetMapping("/delete")
     public String showdeleteFoodForm(@RequestParam("id") Long foodId, Model model) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            setFormAttributes(model);
+            initializeCommonFormAttributes(model);
 
             FoodModel foodToBeDeleted = foodService.getFoodById(foodId);
             model.addAttribute("foodToBeDeleted", foodToBeDeleted);
@@ -56,8 +56,8 @@ public class EditFoodController extends AdminController {
     public String doDeleteFood(@ModelAttribute FoodModel toBeDeleted, RedirectAttributes redirectAttributes) {
         if (Authenticator.isUserLoggedInAdmin()) {
             foodService.deleteExistingFood(toBeDeleted);
-            redirectAttributes.addFlashAttribute("success", "Jedlo uspesne vymazane!");
 
+            redirectAttributes.addFlashAttribute("success", "Jedlo uspesne vymazane!");
             return "redirect:/admin";
         } else {
             throw new UserException.NotAllowedToAccess();

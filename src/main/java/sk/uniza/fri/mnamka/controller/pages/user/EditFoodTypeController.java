@@ -9,8 +9,6 @@ import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.helper.Authenticator;
 import sk.uniza.fri.mnamka.model.FoodTypeModel;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/admin/foodtypes")
 public class EditFoodTypeController extends AdminController {
@@ -18,8 +16,7 @@ public class EditFoodTypeController extends AdminController {
     @GetMapping("/edit")
     public String showEditFoodTypeForm(@RequestParam("name") String name, Model model) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            List<String> usersIdentifiers = userService.getUsersIdentifiers();
-            model.addAttribute("listUserIdentifiers", usersIdentifiers);
+            initializeCommonFormAttributes(model);
 
             FoodTypeModel foodTypeToBeEdited = foodTypeService.getFoodTypeByName(name);
             model.addAttribute("foodTypeToBeEdited", foodTypeToBeEdited);
@@ -33,7 +30,8 @@ public class EditFoodTypeController extends AdminController {
     public String doEditUser(@ModelAttribute FoodTypeModel newFoodType, RedirectAttributes redirectAttributes) {
         if (Authenticator.isUserLoggedInAdmin()) {
             foodTypeService.updateExistingUser(newFoodType);
-            redirectAttributes.addFlashAttribute("success", "Kategória jedla uspešne upravená!");
+
+            redirectAttributes.addFlashAttribute("success", "Typ jedla uspešne upravená!");
             return "redirect:/admin";
         } else {
             throw new UserException.NotAllowedToAccess();
@@ -43,8 +41,7 @@ public class EditFoodTypeController extends AdminController {
     @GetMapping("/delete")
     public String showdeleteFoodTypeForm(@RequestParam("name") String name, Model model) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            List<String> usersIdentifiers = userService.getUsersIdentifiers();
-            model.addAttribute("listUserIdentifiers", usersIdentifiers);
+            initializeCommonFormAttributes(model);
 
             FoodTypeModel foodTypeToBeDeleted = foodTypeService.getFoodTypeByName(name);
             model.addAttribute("foodTypeToBeDeleted", foodTypeToBeDeleted);

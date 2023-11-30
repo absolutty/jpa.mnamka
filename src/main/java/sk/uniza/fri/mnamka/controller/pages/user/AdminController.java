@@ -34,7 +34,7 @@ public class AdminController extends PageController {
     @GetMapping
     public String getAdminPage(Model model) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            setFormAttributes(model);
+            initializeCommonFormAttributes(model);
 
             return getPathFormatter().getPageNameWithPath("admin_page");
         } else {
@@ -42,7 +42,7 @@ public class AdminController extends PageController {
         }
     }
 
-    protected void setFormAttributes(Model model) {
+    protected void initializeCommonFormAttributes(Model model) {
         model.addAttribute("listUserIdentifiers", userService.getUsersIdentifiers());
         model.addAttribute("foodsTypesIdentifiers", foodTypeService.getFoodTypesIdentifiers());
 
