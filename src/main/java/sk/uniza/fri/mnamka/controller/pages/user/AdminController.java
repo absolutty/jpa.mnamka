@@ -48,8 +48,9 @@ public class AdminController extends PageController {
 
         model.addAttribute("foodTypes", foodTypeService.getAllFoodTypes());
 
-        List<FoodModel> availableFoods = foodService.getAllFoods();
-        Map<FoodTypeModel, List<FoodModel>> categorizedFood = FoodService.categorizeFoodByFoodTypes(availableFoods);
+        Map<FoodTypeModel, List<FoodModel>> categorizedFood = FoodService.categorizeFoodByFoodTypes(
+                foodTypeService.getAllFoodTypes(), foodService.getAllFoods()
+        );
         model.addAttribute("categorizedFood", categorizedFood);
     }
 

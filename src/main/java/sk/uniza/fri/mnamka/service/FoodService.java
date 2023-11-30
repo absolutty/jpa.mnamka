@@ -16,21 +16,20 @@ public class FoodService {
         this.foodRepository = foodRepository;
     }
 
-    public static Map<FoodTypeModel, List<FoodModel>> categorizeFoodByFoodTypes(List<FoodModel> foods) {
-        Map<FoodTypeModel, List<FoodModel>> categorizedFood = new HashMap<>();
+    public static Map<FoodTypeModel, List<FoodModel>> categorizeFoodByFoodTypes(List<FoodTypeModel> types, List<FoodModel> foods) {
+        Map<FoodTypeModel, List<FoodModel>> categorizedFood = new LinkedHashMap<>();
 
-        for (FoodModel food: foods) {
-            FoodTypeModel type = food.getType();
-
-            //FoodType uz existuje v Map
-            if (categorizedFood.containsKey(type)) {
-                categorizedFood.get(type).add(food);
-            }
-            //FoodType este nie je pridany do Map
-            else {
-                ArrayList<FoodModel> listOfFoods = new ArrayList<>();
-                listOfFoods.add(food);
-                categorizedFood.put(type, listOfFoods);
+        for (FoodTypeModel type : types) {
+            for (FoodModel food : foods) {
+                if (food.getType().equals(type)) {
+                    if (categorizedFood.containsKey(type)) {
+                        categorizedFood.get(type).add(food);
+                    } else {
+                        List<FoodModel> arrFoodsValue = new ArrayList<>();
+                        arrFoodsValue.add(food);
+                        categorizedFood.put(type, arrFoodsValue);
+                    }
+                }
             }
         }
 

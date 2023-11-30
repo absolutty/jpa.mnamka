@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository){
@@ -16,6 +17,10 @@ public class UserService {
     }
 
     public User authenticateUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Given USER is null!");
+        }
+
         User userFromDatabase = userRepository.userAuthentication(user.getEmail(), user.getPassword());
         if (userFromDatabase == null) {
             throw new BadCredentialsException("Not correct user credentials!");
@@ -25,10 +30,15 @@ public class UserService {
     }
 
     public User createUser(User user){
-        User userFromDatabase = userRepository.findUserByEmail(user.getEmail());
-        if (userFromDatabase == null) {
+        if (user == null || user.anyRequiredFieldIsEmpty()) {
+            throw new IllegalArgumentException("Given USER is not correct!");
+        }
+
+        User userAlreadyInDatabase = userRepository.findUserByEmail(user.getEmail());
+        if (userAlreadyInDatabase == null) {
             User newUser = userRepository.save(user);
             userRepository.flush();
+
             return newUser;
         } else {
             throw new BadCredentialsException("Email to identify user already exists!");
@@ -52,7 +62,13 @@ public class UserService {
             throw new IllegalArgumentException("Given USER is not correct!");
         } else {
             userRepository.updateUserWithId(
-                    user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPassword(), user.getGender(), user.getRole()
+                    user.getId(),
+                    user.getEmail(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getPassword(),
+                    user.getGender(),
+                    user.getRole()
             );
         }
     }

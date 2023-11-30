@@ -30,7 +30,7 @@ public class MenuController extends PageController {
     public String getMenuPage(Model model) {
         List<FoodModel> availableFoods = foodService.getAllFoods();
 
-        Map<FoodTypeModel, List<FoodModel>> categorizedFood = FoodService.categorizeFoodByFoodTypes(availableFoods);
+        Map<FoodTypeModel, List<FoodModel>> categorizedFood = FoodService.categorizeFoodByFoodTypes(foodTypeService.getAllFoodTypes(), availableFoods);
 
         model.addAttribute("categorizedFood", categorizedFood);
 
