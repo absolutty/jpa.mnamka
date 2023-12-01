@@ -2,13 +2,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editUserModalLabel">Edituješ používateľa: <strong th:text="${userToBeEdited.email}"></strong></h1>
+        <h1 class="modal-title fs-5" id="editUserModalLabel" th:text="${userToBeEdited.isNewUserBeingCreated() ? 'Vytváraš používateľa' : 'Edituješ používateľa' }"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" th:action="@{/admin/users/edit}">
+        <form method="post" th:action="${userToBeEdited.isNewUserBeingCreated()} ? @{/admin/users/add} : @{/admin/users/edit}">
           <!--     USERs ID     -->
-          <div class="row mb-3">
+          <div th:if="${!userToBeEdited.isNewUserBeingCreated()}" class="row mb-3">
             <label for="userId" class="col-sm-2 col-form-label">Id</label>
             <div class="col-sm-10">
               <input type="number" class="form-control" id="userId" th:value="${userToBeEdited.id}" th:field="*{userToBeEdited.id}" readonly>
@@ -66,11 +66,16 @@
           </div>
 
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
-          <button type="submit" class="btn btn-primary">Ulož</button>
+          <th:block th:if="${userToBeEdited.isNewUserBeingCreated()}">
+            <button type="submit" class="btn btn-primary">Vytvor</button>
+          </th:block>
+          <th:block th:unless="${userToBeEdited.isNewUserBeingCreated()}">
+            <button type="submit" class="btn btn-primary">Ulož</button>
+          </th:block>
         </form>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 <script>
