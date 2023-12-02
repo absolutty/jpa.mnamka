@@ -61,7 +61,7 @@
 					</button>
 					<!--	PRIDAJ FOOD TYPE	-->
 					<div class="d-flex align-items-center">
-						<a href="#" class="actionIcon ml-2">
+						<a th:href="@{/admin/foodtypes/add}" class="actionIcon ml-2">
 							<img class="actionIcon" th:src="@{/images/icons/add-food-category.gif}" alt="Add Food Type">
 						</a>
 					</div>
@@ -109,8 +109,7 @@
 				<div id="collapseFoods" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
 					<div class="accordion-body">
 						<div class="food-category" th:each="element : ${categorizedFood}">
-							<h2 class="title" th:id="${element.key.food_type_id}" th:text="${element.key.name}"></h2>
-
+							<h2 class="title" th:id="${element.key.id}" th:text="${element.key.name}"></h2>
 
 							<ul class="list-group"  th:each="food : ${element.value}">
 								<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -125,7 +124,6 @@
 									</div>
 								</li>
 							</ul>
-
 
 						</div>
 					</div>

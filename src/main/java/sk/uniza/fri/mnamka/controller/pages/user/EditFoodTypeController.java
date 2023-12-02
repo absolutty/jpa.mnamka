@@ -1,6 +1,7 @@
 package sk.uniza.fri.mnamka.controller.pages.user;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,35 @@ public class EditFoodTypeController extends AdminController {
             }
             return "redirect:/admin";
 
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/add")
+    public String showAddFoodTypeForm(Model model) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            initializeCommonFormAttributes(model);
+
+            FoodTypeModel foodTypeToBeEdited = new FoodTypeModel(true);
+            model.addAttribute("foodTypeToBeEdited", foodTypeToBeEdited);
+
+            return getPathFormatter().getPageNameWithPath("admin_page");
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+    @PostMapping("/add")
+    public String doAddFoodType(@ModelAttribute FoodTypeModel toBeAdded, RedirectAttributes redirectAttributes) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            try {
+                foodTypeService.createFoodType(toBeAdded);
+                redirectAttributes.addFlashAttribute("success", "Typ jedla úspešne pridaný!");
+            } catch (BadCredentialsException ex) {
+                redirectAttributes.addFlashAttribute("failure", "Nemožno pridať typ jedla. Meno už existuje!");
+            }
+
+            return "redirect:/admin";
         } else {
             throw new UserException.NotAllowedToAccess();
         }

@@ -1,55 +1,38 @@
 package sk.uniza.fri.mnamka.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import sk.uniza.fri.mnamka.helper.FieldValidator;
 
-import java.util.Objects;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "food_types")
 public class FoodTypeModel implements FieldValidator {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long food_type_id;
+    public static final long NEW_FOODTYPE_ID_INDICATOR = -1;
+
+    @Id @Column(name="ID")
+    @GeneratedValue(strategy= GenerationType.IDENTITY) private Long id;
     @Column(unique = true, nullable = false) private String name;
 
-    public Long getFood_type_id() {
-        return food_type_id;
-    }
-    public void setFood_type_id(Long id) {
-        this.food_type_id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FoodTypeModel that = (FoodTypeModel) o;
-        return Objects.equals(food_type_id, that.food_type_id) && Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(food_type_id, name);
-    }
-
-    @Override
-    public String toString() {
-        return "FoodTypeModel{" +
-                "id=" + food_type_id +
-                ", name='" + name + '\'' +
-                '}';
+    public FoodTypeModel(boolean isNewFoodTypeBeingCreated) {
+        if (isNewFoodTypeBeingCreated) {
+            this.id = NEW_FOODTYPE_ID_INDICATOR;
+        }
     }
 
     @Override
     public boolean anyRequiredFieldIsEmpty() {
         return (name == null || name.isEmpty());
+    }
+
+    public boolean isNewFoodTypeBeingCreated() {
+        return (this.id == NEW_FOODTYPE_ID_INDICATOR);
     }
 
 }
