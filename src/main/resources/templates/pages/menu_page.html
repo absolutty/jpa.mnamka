@@ -23,7 +23,7 @@
 						</div>
 					</div>
 					<div class="menu-navigation col-md-4 order-md-2 order-1">
-						<a class="second-type-link" th:href="'#' + ${element.key.food_type_id}" th:each="element : ${categorizedFood}" th:text="${element.key.name}"></a>
+						<a class="second-type-link" th:href="'#' + ${element.key.id}" th:each="element : ${categorizedFood}" th:text="${element.key.name}"></a>
 						<a th:href="@{/about}">
 							<button class="grid-item button-large">
 								Prečítaj si viacej o nás
@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="food-category" th:each="element : ${categorizedFood}">
-				<h2 class="title" th:id="${element.key.food_type_id}" th:text="${element.key.name}"></h2>
+				<h2 class="title" th:id="${element.key.id}" th:text="${element.key.name}"></h2>
 
 				<div class="food card mx-auto mb-3" th:each="food : ${element.value}">
 					<div class="row g-0">

@@ -15,6 +15,7 @@ public class User implements FieldValidator {
 
     public static final String ROLE_USER = "USER";
     public static final String ROLE_ADMIN = "ADMIN";
+    public static final long NEW_USER_ID_INDICATOR = -1;
 
     @Id @Column(name = "ID")
     @GeneratedValue(strategy= GenerationType.IDENTITY) private Long id;
@@ -24,6 +25,12 @@ public class User implements FieldValidator {
     @Column(name = "LAST_NAME") private String lastName;
     @Column(name = "GENDER") private String gender;
     @Column(name = "ROLE") private String role;
+
+    public User(boolean isNewUserBeingCreated) {
+        if (isNewUserBeingCreated) {
+            this.id = NEW_USER_ID_INDICATOR;
+        }
+    }
 
     public User(String email, String password, String firstName, String lastName) {
         this.email = email;
@@ -38,6 +45,10 @@ public class User implements FieldValidator {
                 (password == null || password.isEmpty()) ||
                 (firstName == null || firstName.isEmpty()) ||
                 (lastName == null || lastName.isEmpty());
+    }
+
+    public boolean isNewUserBeingCreated() {
+        return (this.id == NEW_USER_ID_INDICATOR);
     }
 
 }

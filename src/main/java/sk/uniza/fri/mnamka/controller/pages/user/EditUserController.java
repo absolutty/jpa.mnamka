@@ -1,5 +1,6 @@
 package sk.uniza.fri.mnamka.controller.pages.user;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,35 @@ public class EditUserController extends AdminController {
             userService.deleteExistingUser(toBeDeleted);
 
             redirectAttributes.addFlashAttribute("success", "Používateľ úspešne odstránený!");
+            return "redirect:/admin";
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/add")
+    public String showAddUserForm(Model model) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            initializeCommonFormAttributes(model);
+
+            User userToBeEdited = new User(true);
+            model.addAttribute("userToBeEdited", userToBeEdited);
+
+            return getPathFormatter().getPageNameWithPath("admin_page");
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+    @PostMapping("/add")
+    public String doAddUser(@ModelAttribute User toBeAdded, RedirectAttributes redirectAttributes) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            try {
+                userService.createUser(toBeAdded);
+                redirectAttributes.addFlashAttribute("success", "Používateľ úspešne pridaný!");
+            } catch (BadCredentialsException ex) {
+                redirectAttributes.addFlashAttribute("failure", "Nemožno pridať používateľa. Email už existuje!");
+            }
+
             return "redirect:/admin";
         } else {
             throw new UserException.NotAllowedToAccess();

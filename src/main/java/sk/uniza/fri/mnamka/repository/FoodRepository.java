@@ -16,6 +16,8 @@ public interface FoodRepository extends JpaRepository<FoodModel, Integer> {
 
     FoodModel findFoodModelById(Long id);
 
+    FoodModel findFoodModelByName(String name);
+
     @Modifying
     @Transactional
     @Query( "UPDATE FoodModel f " +

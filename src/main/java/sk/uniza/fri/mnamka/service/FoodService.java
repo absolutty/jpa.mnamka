@@ -1,5 +1,6 @@
 package sk.uniza.fri.mnamka.service;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import sk.uniza.fri.mnamka.model.FoodModel;
 import sk.uniza.fri.mnamka.model.FoodTypeModel;
@@ -60,6 +61,21 @@ public class FoodService {
         } else {
             foodRepository.deleteUserWithIdAndEmail(food.getId());
         }
+    }
+
+    public void createFood(FoodModel food) {
+        if (food == null || food.anyRequiredFieldIsEmpty()) {
+            throw new IllegalArgumentException("Given FOOD is not correct!");
+        }
+
+        FoodModel foodAlreadyInDatabase = foodRepository.findFoodModelByName(food.getName());
+        if (foodAlreadyInDatabase == null) {
+            FoodModel newFood = foodRepository.save(food);
+            foodRepository.flush();
+        } else {
+            throw new BadCredentialsException("Name to identify food already exists!");
+        }
+
     }
 
 }
