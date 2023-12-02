@@ -1,0 +1,28 @@
+:root {
+    --color-success: #6bc839;
+    --color-failure: #fc0102;
+    --color-warning: #ffc048;
+    --color-info: #02aef2;
+}
+
+.alert {
+    border: 3px solid;
+    border-radius: 5px;
+    margin: 8px 0 8px 0;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.alert .icon {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    margin-right: 10px;
+}
+
+.alert .text {
+    font-weight: bolder;
+    order: 2;
+    font-family: var(--secondary-font);
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head title="Menu page" >
+	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/menu.css}" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+	<div class="content-wrap">
+		<div class="content menu-page">
+			<div class="grid container">
+				<div class="row">
+					<div class="col-md-8 order-md-1 order-2">
+						<div class="row h-100">
+							<div class="col-md-6">
+								<img class="menu-image" src="/images/pizza.jpg">
+							</div>
+							<div class="col-md-6">
+								<img class="menu-image" src="/images/pasta.jpg">
+							</div>
+						</div>
+					</div>
+					<div class="menu-navigation col-md-4 order-md-2 order-1">
+						<a class="second-type-link" th:href="'#' + ${element.key.id}" th:each="element : ${categorizedFood}" th:text="${element.key.name}"></a>
+						<a th:href="@{/about}">
+							<button class="grid-item button-large">
+								Prečítaj si viacej o nás
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="food-category" th:each="element : ${categorizedFood}">
+				<h2 class="title" th:id="${element.key.id}" th:text="${element.key.name}"></h2>
+
+				<div class="food card mx-auto mb-3" th:each="food : ${element.value}">
+					<div class="row g-0">
+						<div class="col-4">
+							<img th:src="${food.img_url}" class="img-fluid rounded-start">
+						</div>
+						<div class="col-8">
+							<div class="card-body">
+								<div class="d-flex justify-content-between">
+									<h5 class="card-title" th:text="${food.name}"></h5>
+									<img class="add-to-cart" th:src="@{/images/icons/add-to-cart.gif}">
+								</div>
+								<p class="card-text" th:text="${food.description}"></p>
+								<h5 th:text="${food.price} + '€'"></h5>
+								<p class="card-text">
+									<small class="text-body-secondary" th:text="${food.measurement}"></small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<style>
+
+</style>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<div class="modal fade" id="editFoodtypeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editFoodtypeModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="editFoodtypeModalLabel" th:text="${foodTypeToBeEdited.isNewFoodTypeBeingCreated() ? 'Vytváraš typ jedla' : 'Edituješ typ jedla' }"></h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="post" th:action="${foodTypeToBeEdited.isNewFoodTypeBeingCreated()} ? @{/admin/foodtypes/add} : @{/admin/foodtypes/edit}">
+					<!--     FOODTYPEs ID     -->
+					<div th:if="${!foodTypeToBeEdited.isNewFoodTypeBeingCreated()}" class="row mb-3">
+						<label for="foodtypeId" class="col-sm-2 col-form-label">Id</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" id="foodtypeId" th:value="${foodTypeToBeEdited.id}" th:field="*{foodTypeToBeEdited.id}" readonly>
+						</div>
+					</div>
+					<!--     FOODTYPEs NAME     -->
+					<div class="row mb-3">
+						<label for="foodtypeName" class="col-sm-2 col-form-label">Názov</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="foodtypeName" th:value="${foodTypeToBeEdited.name}" th:field="*{foodTypeToBeEdited.name}" required>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
+					<th:block th:if="${foodTypeToBeEdited.isNewFoodTypeBeingCreated()}">
+						<button type="submit" class="btn btn-primary">Vytvor</button>
+					</th:block>
+					<th:block th:unless="${foodTypeToBeEdited.isNewFoodTypeBeingCreated()}">
+						<button type="submit" class="btn btn-primary">Ulož</button>
+					</th:block>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editFoodtypeModal = new bootstrap.Modal('#editFoodtypeModal');
+        if (editFoodtypeModal) {
+            editFoodtypeModal.show();
+        }
+    });
+</script>

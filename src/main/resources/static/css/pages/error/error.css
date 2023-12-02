@@ -1,14 +1,14 @@
-.content.page404 {
+.content.errorPage {
     width: 300px;
     margin: auto;
 }
 
-.page404 .fire-image {
+.errorPage .errorImage {
     height: 100%;
     width: 100%;
     object-fit: contain
 }
 
-.page404 .title, .page404 .explanation {
+.errorPage .errorTitle, .errorPage .errorMessage {
     text-align: center;
 }

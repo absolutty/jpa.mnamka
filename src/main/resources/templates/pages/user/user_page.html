@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head title="User page" >
+	<th:block th:insert="~{fragments/head}" />
+</head>
+<body>
+<nav th:replace="~{fragments/navbar}"></nav>
+	<h1>User Profile</h1>
+	<div sec:authorize="isAuthenticated()">
+		User IS logged in.
+	</div>
+	<div sec:authorize="isAnonymous()">
+		User IS NOT logged in.
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		ADMIN
+	</div>
+	<div sec:authorize="hasRole('ROLE_USER')">
+		USER
+	</div>
+</body>
+</html>
