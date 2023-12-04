@@ -25,4 +25,11 @@
 .add-to-cart {
     height: 36px;
 }
+
+.modal-header.with-img {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /* END - Food categories and foods */
