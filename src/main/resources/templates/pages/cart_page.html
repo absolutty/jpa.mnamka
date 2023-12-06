@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div class="navigation-bar-item" th:with="cartContent=${session.cartContent}">
+	<div th:if="${cartContent}" class="dropdown">
+		<h1>Mas tu nejake veci</h1>
+	</div>
+	<div th:unless="${cartContent}" th:href="@{/user}">
+		<h1>Nemas tu nic</h1>
+	</div>
+</div>
+</body>
+</html>

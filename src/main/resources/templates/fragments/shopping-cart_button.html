@@ -1,0 +1,4 @@
+<link th:href="@{/css/fragments/shopping-cart_button.css}" rel="stylesheet" type="text/css">
+<a th:if="${session.cartContent != null && session.cartContent.size() > 0}" th:href="@{/cart}">
+  <img id="shopping-cart_button" class="actionIcon ml-2" th:src="@{/images/icons/shopping-cart.gif}" alt="Edit">
+</a>
