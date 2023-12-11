@@ -61,7 +61,7 @@ function setButtonText(button, price, quantity) {
 }
 
 function addToCart(id, quantity) {
-    fetch('http://localhost:8080/menu/addToCart?foodId=' + id + '&quantity=' + quantity, {
+    fetch('http://localhost:8080/cart/addToCart?foodId=' + id + '&quantity=' + quantity, {
         method: "POST",
         headers: {
             Accept: "application/json",

@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "ORDERED_FOODS")
 public class OrderedFood {
 
+    private static Long IN_SESSION_ID = 0L;
+
     @Id @Column(name = "ID")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -26,5 +28,9 @@ public class OrderedFood {
 
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
+
+    public static Long getNextvalId() {
+        return ++IN_SESSION_ID;
+    }
 
 }

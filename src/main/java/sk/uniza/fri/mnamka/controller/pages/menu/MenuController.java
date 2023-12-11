@@ -44,23 +44,4 @@ public class MenuController extends PageController {
         return getPathFormatter().getPageNameWithPath("menu_page");
     }
 
-    @PostMapping("/addToCart")
-    public ResponseEntity<String> addToCart(@RequestParam Long foodId, @RequestParam Integer quantity, HttpSession session) {
-        FoodModel food = foodService.getFoodById(foodId);
-
-        List<OrderedFood> cartContent = (List<OrderedFood>) session.getAttribute("cartContent");
-        if (cartContent == null) {
-            cartContent = new ArrayList<>();
-        }
-
-        OrderedFood orderedFood = new OrderedFood();
-        orderedFood.setFood(food);
-        orderedFood.setQuantity(quantity);
-        cartContent.add(orderedFood);
-
-        session.setAttribute("cartContent", cartContent);
-
-        return ResponseEntity.ok("{\"status\": \"success\"}");
-    }
-
 }
