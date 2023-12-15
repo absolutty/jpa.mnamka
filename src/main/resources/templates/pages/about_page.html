@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head title="About page" >
-  <th:block th:insert="~{fragments/head}" />
+<head title="About page">
+	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/about.css}" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-  <h1>About Page</h1>
+<div class="content-wrap">
+	<div class="content about-page">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 column d-flex align-items-center">
+					<div class="description">
+						<h1 class="title">Tešíme sa na vás...</h1>
+						<p class="text">
+							<strong>Reštaurácia Mňamka</strong>,
+							situovaná v srdci mesta, ponúka svojim návštevníkom široký výber jedál a nápojov.
+							Interiér je navrhnutý v modernom štýle s prvkami luxusu. Tu si môžete usporiadať
+							obchodné stretnutie, romantický večer alebo jednoducho vychutnať lahodné jedlo.
+						</p>
+						<a th:href="@{/menu}">
+							<button class="button-large">
+								Zobraz menu
+							</button>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 column">
+					<img class="column-content about-image" src="/images/interior-1.jpg">
+				</div>
+				<div class="col-md-4 column">
+					<img class="column-content about-image" src="/images/interior-2.jpg">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
