@@ -34,4 +34,9 @@ public abstract class AbstractEntity implements FieldValidator {
         throw new UnsupportedOperationException("[anyRequiredFieldIsEmpty()]: Method not implemented yet!");
     }
 
+    @Override
+    public boolean anyNumberFieldIsNotCorrect() {
+        throw new UnsupportedOperationException("[anyNumberFieldIsNotCorrect()]: Method not implemented yet!");
+    }
+
 }
