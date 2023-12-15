@@ -23,7 +23,9 @@ public class Authenticator {
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(newAuthentication);
+
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
+        session.setAttribute("user", user);
     }
 
     public static boolean isUserLoggedIn() {

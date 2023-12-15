@@ -53,6 +53,7 @@ public class AuthController {
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession();
+        session.removeAttribute("user");
         session.invalidate();
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(null);
