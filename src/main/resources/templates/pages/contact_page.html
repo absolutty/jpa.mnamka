@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head title="Contact page">
+	<th:block th:insert="~{fragments/head}" />
+	<link th:href="@{/css/pages/contact.css}" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav th:replace="~{fragments/navbar}"></nav>
+<div class="content-wrap">
+	<div class="content contact-page">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-4 column d-flex align-items-center order-1 order-md-0">
+					<iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4476.090898162292!2d17.14967815899252!3d48.15845222424536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c8f7d50df67a5%3A0x6fdb0b90f7dd48e5!2zTcWIYW1rYQ!5e0!3m2!1ssk!2ssk!4v1702644545570!5m2!1ssk!2ssk"></iframe>
+				</div>
+				<div class="col-md-4 column d-flex align-items-center order-0 order-md-1">
+					<div class="description">
+						<h1 class="title">Kontaktné údaje</h1>
+
+						<h2 class="subtitle">Adresa</h2>
+						<p class="text">Herlianska 135/15, 821 03 Bratislava</p>
+						<h2 class="subtitle">Telefónne číslo</h2>
+						<a class="text" href="tel:+421940791116">+421 940 791 116</a>
+						<h2 class="subtitle">Email</h2>
+						<a class="text" href="mailto: mnamka@gmail.com">mnamka@gmail.com</a>
+					</div>
+				</div>
+				<div class="col-md-4 column order-2 order-md-2">
+					<img class="column-content contact-image" src="/images/interior-2.jpg">
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+</body>
+</html>
