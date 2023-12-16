@@ -37,6 +37,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
                 "u.firstName = :newFirstName, " +
                 "u.lastName = :newLastName, " +
                 "u.password = :newPassword, " +
+                "u.address = :newAddress, " +
+                "u.phoneNumber = :newPhoneNumber, " +
                 "u.gender = :newGender, " +
                 "u.role = :newRole " +
             "WHERE u.id = :userId")
@@ -46,6 +48,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
             @Param("newFirstName") String newFirstName,
             @Param("newLastName") String newLastName,
             @Param("newPassword") String newPassword,
+            @Param("newAddress") String newAddress,
+            @Param("newPhoneNumber") String newPhoneNumber,
             @Param("newGender") String newGender,
             @Param("newRole") String newRole
     );

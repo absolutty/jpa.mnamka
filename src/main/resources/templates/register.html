@@ -10,10 +10,12 @@
   <div class="content auth-page">
     <form class="auth-form" method="post" th:action="@{/register}" th:object="${user}">
       <th:block th:insert="~{fragments/alert}"></th:block>
+      <input name="email" type="email" placeholder="Email" th:field="*{email}" required/>
       <input name="name" type="text" placeholder="Meno" th:field="*{firstName}" required/>
       <input name="lastName" type="text" placeholder="Priezvisko" th:field="*{lastName}" required/>
-      <input name="email" type="email" placeholder="Email" th:field="*{email}" required/>
       <input name="password" type="password" placeholder="Heslo" th:field="*{password}" required/>
+      <input name="address" type="text" placeholder="Adresa" th:field="*{address}" required/>
+      <input name="phoneNumber" type="text" placeholder="Telefónne číslo" th:field="*{phoneNumber}" required/>
       <select name="gender" th:field="*{gender}">
         <option value="" selected>Zvol si pohlavie...</option>
         <option value="male">Muž</option>

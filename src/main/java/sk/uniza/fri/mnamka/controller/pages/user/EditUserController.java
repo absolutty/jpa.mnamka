@@ -68,8 +68,8 @@ public class EditUserController extends AdminController {
         if (Authenticator.isUserLoggedInAdmin()) {
             initializeCommonFormAttributes(model);
 
-            User userToBeEdited = new User(true);
-            model.addAttribute("userToBeEdited", userToBeEdited);
+            User userToBeAdded = new User(true);
+            model.addAttribute("userToBeEdited", userToBeAdded);
 
             return getPathFormatter().getPageNameWithPath("admin_page");
         } else {
