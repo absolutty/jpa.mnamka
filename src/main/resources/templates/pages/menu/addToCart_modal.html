@@ -1,0 +1,26 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog" aria-labelledby="foodDetailModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div id="foodImg" class="modal-header with-img">
+			</div>
+			<div class="modal-body">
+				<h2 class="modal-title" id="foodDetailModalLabel"></h2>
+				<p id="foodDescription"></p>
+				<p id="foodMeasurement"></p>
+			</div>
+			<div class="modal-footer">
+				<button id="decreaseQuantityButton" type="button" class="btn btn-floating btn-lg">
+					<i class="fa fa-minus"></i>
+				</button>
+				<label id="quantityLabel">1</label>
+				<button id="increaseQuantityButton" type="button" class="btn btn-floating btn-lg">
+					<i class="fa fa-plus"></i>
+				</button>
+				<form id="addToCartForm">
+					<button id="addToCartButton" type="button" class="button-small">Pridaj do košíka</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
