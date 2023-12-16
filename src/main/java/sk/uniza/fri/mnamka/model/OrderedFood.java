@@ -1,36 +1,37 @@
 package sk.uniza.fri.mnamka.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "ORDERED_FOODS")
-public class OrderedFood {
+@Table(name = "ordered_foods")
+public class OrderedFood extends AbstractEntity {
 
-    private static Long IN_SESSION_ID = 0L;
+    private static Long STATIC_ID = 1L;
 
-    @Id @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    @JoinColumn(name = "order_id", nullable = false) @ManyToOne private Order order;
+    @JoinColumn(name = "food_id", nullable = false) @ManyToOne private FoodModel food;
+    @Column(nullable = false) private Integer quantity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
+    public OrderedFood(FoodModel foodModel, Integer quantity) {
+        setId(STATIC_ID++);
+        this.food = foodModel;
+        this.quantity = quantity;
+    }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "FOOD_ID", nullable = false)
-    private FoodModel food;
+    @Override
+    public boolean anyRequiredFieldIsEmpty() {
+        return super.anyRequiredFieldIsEmpty();
+    }
 
-    @Column(name = "QUANTITY", nullable = false)
-    private Integer quantity;
-
-    public static Long getNextvalId() {
-        return ++IN_SESSION_ID;
+    @Override
+    public boolean anyNumberFieldIsNotCorrect() {
+        return super.anyNumberFieldIsNotCorrect();
     }
 
 }

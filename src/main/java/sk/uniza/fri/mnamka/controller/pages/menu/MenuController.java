@@ -9,11 +9,9 @@ import sk.uniza.fri.mnamka.controller.PageController;
 import sk.uniza.fri.mnamka.helper.PathFormatter;
 import sk.uniza.fri.mnamka.model.FoodModel;
 import sk.uniza.fri.mnamka.model.FoodTypeModel;
-import sk.uniza.fri.mnamka.model.OrderedFood;
 import sk.uniza.fri.mnamka.service.FoodService;
 import sk.uniza.fri.mnamka.service.FoodTypeService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
