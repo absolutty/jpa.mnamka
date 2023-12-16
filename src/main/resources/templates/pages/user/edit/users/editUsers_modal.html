@@ -2,13 +2,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editUserModalLabel" th:text="${userToBeEdited.isNewUserBeingCreated() ? 'Vytváraš používateľa' : 'Edituješ používateľa' }"></h1>
+        <h1 class="modal-title fs-5" id="editUserModalLabel" th:text="${userToBeEdited.isNewEntityBeingCreated() ? 'Vytváraš používateľa' : 'Edituješ používateľa' }"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" th:action="${userToBeEdited.isNewUserBeingCreated()} ? @{/admin/users/add} : @{/admin/users/edit}">
+        <form method="post" th:action="${userToBeEdited.isNewEntityBeingCreated()} ? @{/admin/users/add} : @{/admin/users/edit}">
           <!--     USERs ID     -->
-          <div th:if="${!userToBeEdited.isNewUserBeingCreated()}" class="row mb-3">
+          <div th:if="${!userToBeEdited.isNewEntityBeingCreated()}" class="row mb-3">
             <label for="userId" class="col-sm-2 col-form-label">Id</label>
             <div class="col-sm-10">
               <input type="number" class="form-control" id="userId" th:value="${userToBeEdited.id}" th:field="*{userToBeEdited.id}" readonly>
@@ -42,6 +42,20 @@
               <input type="text" class="form-control" id="password" th:value="${userToBeEdited.password}" th:field="*{userToBeEdited.password}" required>
             </div>
           </div>
+          <!--     USERs ADDRESS     -->
+          <div class="row mb-3">
+            <label for="userAddress" class="col-sm-2 col-form-label">Adresa</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="userAddress" th:value="${userToBeEdited.address}" th:field="*{userToBeEdited.address}" required>
+            </div>
+          </div>
+          <!--     USERs PHONE_NUMBER     -->
+          <div class="row mb-3">
+            <label for="userPhoneNumber" class="col-sm-2 col-form-label">Telefónne číslo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="userPhoneNumber" th:value="${userToBeEdited.phoneNumber}" th:field="*{userToBeEdited.phoneNumber}" required>
+            </div>
+          </div>
           <!--     USERs GENDER     -->
           <div class="row mb-3">
             <label for="userGender" class="col-sm-2 col-form-label">Pohlavie</label>
@@ -66,10 +80,10 @@
           </div>
 
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
-          <th:block th:if="${userToBeEdited.isNewUserBeingCreated()}">
+          <th:block th:if="${userToBeEdited.isNewEntityBeingCreated()}">
             <button type="submit" class="btn btn-primary">Vytvor</button>
           </th:block>
-          <th:block th:unless="${userToBeEdited.isNewUserBeingCreated()}">
+          <th:block th:unless="${userToBeEdited.isNewEntityBeingCreated()}">
             <button type="submit" class="btn btn-primary">Ulož</button>
           </th:block>
         </form>

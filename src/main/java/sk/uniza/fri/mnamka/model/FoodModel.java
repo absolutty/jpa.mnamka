@@ -3,39 +3,38 @@ package sk.uniza.fri.mnamka.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import sk.uniza.fri.mnamka.helper.FieldValidator;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "foods")
-public class FoodModel implements FieldValidator {
+public class FoodModel extends AbstractEntity {
 
-    public static final long NEW_FOOD_ID_INDICATOR = -1;
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-    private String name;
-    private Double price;
-    private String description;
-    @ManyToOne @JoinColumn(name = "food_type_id") private FoodTypeModel type;
-    private String measurement;
-    private String img_url;
+    @Column(unique = true, nullable = false) private String name;
+    @Column(nullable = false) private Double price;
+    @Column private String description;
+    @JoinColumn(name = "food_type_id", nullable = false) @ManyToOne private FoodTypeModel type;
+    @Column(nullable = false) private String measurement;
+    @Column private String img_url;
 
     public FoodModel(boolean isNewFoodBeingCreated) {
-        if (isNewFoodBeingCreated) {
-            this.id = NEW_FOOD_ID_INDICATOR;
-        }
+        super(isNewFoodBeingCreated);
     }
 
     @Override
     public boolean anyRequiredFieldIsEmpty() {
-        return  (name == null) || (name.isEmpty());
+        return  (name == null)  || (name.isEmpty()) ||
+                (price == null) || (price.isNaN()) ||
+                (measurement == null) || (measurement.isEmpty());
     }
 
-    public boolean isNewFoodBeingCreated() {
-        return (this.id == NEW_FOOD_ID_INDICATOR);
+    @Override
+    public boolean anyNumberFieldIsNotCorrect() {
+        return (price == null) || (price <= 0);
     }
 
 }
