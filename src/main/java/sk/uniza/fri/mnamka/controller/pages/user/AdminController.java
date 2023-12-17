@@ -5,18 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sk.uniza.fri.mnamka.controller.PageController;
 import sk.uniza.fri.mnamka.exception.UserException;
 import sk.uniza.fri.mnamka.helper.Authenticator;
 import sk.uniza.fri.mnamka.helper.PathFormatter;
 import sk.uniza.fri.mnamka.model.FoodModel;
 import sk.uniza.fri.mnamka.model.FoodTypeModel;
-import sk.uniza.fri.mnamka.service.FoodService;
-import sk.uniza.fri.mnamka.service.FoodTypeService;
-import sk.uniza.fri.mnamka.service.UserService;
+import sk.uniza.fri.mnamka.service.*;
 
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,6 +25,8 @@ public class AdminController extends PageController {
     @Autowired protected UserService userService;
     @Autowired protected FoodTypeService foodTypeService;
     @Autowired protected FoodService foodService;
+    @Autowired protected OrderService orderService;
+    @Autowired protected OrderedFoodService orderedFoodService;
 
     @Override
     public PathFormatter getPathFormatter() {
@@ -42,10 +44,53 @@ public class AdminController extends PageController {
         }
     }
 
+    @GetMapping("/processOrders")
+    public String getProcessOrderPage(Model model) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            model.addAttribute("orders", OrderService.groupByOrder(orderService.getAllOrders(), orderedFoodService.getAllOrderedFoods()));
+            return getPathFormatter().getPageNameWithPath("process_order_page");
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/getUpdatedOrders")
+    public String getUpdatedOrders(Model model) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            model.addAttribute("orders", OrderService.groupByOrder(orderService.getAllOrders(), orderedFoodService.getAllOrderedFoods()));
+            return String.format("%s :: ordersList", getPathFormatter().getPageNameWithPath("orders"));
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/updateOrder")
+    public String updateOrder(@RequestParam("id") Long orderId) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            orderService.orderSetNextStage(orderId);
+            return "redirect:/admin/processOrders";
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/getActualDate")
+    public @ResponseBody String getActualDate() {
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        return dateFormat.format(currentDate);
+    }
+
+    @GetMapping("/getActualTime")
+    public @ResponseBody String getActualTime() {
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(currentDate);
+    }
+
     protected void initializeCommonFormAttributes(Model model) {
         model.addAttribute("listUserIdentifiers", userService.getUsersIdentifiers());
         model.addAttribute("foodsTypesIdentifiers", foodTypeService.getFoodTypesIdentifiers());
-
         model.addAttribute("foodTypes", foodTypeService.getAllFoodTypes());
 
         Map<FoodTypeModel, List<FoodModel>> categorizedFood = FoodService.categorizeFoodByFoodTypes(
