@@ -14,41 +14,18 @@
 <div class="content-wrap">
     <div class="content cart-page">
         <div th:fragment="orderContent">
-            <div th:if="${orders.size() > 0}" class="accordion" id="accordionParent">
-                <h1>Vytvorené objednávky</h1>
-                <h2>Aktuálny dátum: <strong id="actualDate"></strong></h2>
-                <h2>Aktuálny čas: <strong id="actualTime"></strong></h2>
-                <ul class = "list-group" th:each="element : ${orders}">
-                    <li class = "list-group-item" style="margin-top: 16px; background: var(--color-brown)">
-                        <h4 class="mb-3" th:text="'Objednané jedlo s ID: ' + ${element.key.id}"></h4>
-                        <h5 class="mb-3">
-                            Dátum a čas objednania:
-                            <strong style="color: var(--color-white)" th:text=" ${#dates.format(element.key.creationDate, 'dd.MM.yyyy HH:mm')}"></strong>
-                        </h5>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Objednané jedlo</th>
-                                    <th scope="col">Počet porcií</th>
-                                </tr>
-                                </thead>
-                            <tbody>
-                                <tr th:each="orderedFood : ${element.value}">
-                                    <td th:text="${orderedFood.food.name}"></td>
-                                    <td th:text="${orderedFood.quantity}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </li>
-                </ul>
+            <div th:if="${orders.size() > 0}" class="accordion" id="orders">
+                <h1 class="text-center">Vytvorené objednávky</h1>
+                <h2 class="text-center">Aktuálny dátum: <strong id="actualDate"></strong></h2>
+                <h2 class="text-center"> Aktuálny čas: <strong id="actualTime"></strong></h2>
+                <div id="resultsBlock"></div>
             </div>
         </div>
-
     </div>
 </div>
 </body>
 <style>
-    #accordionParent {
+    #orders {
         max-width: 850px;
         margin: auto;
     }
@@ -72,12 +49,13 @@
             }
         });
     }
-</script>
-<script type="text/javascript">
-    var intervalIdDate = 0;
-    intervalIdDate = setInterval(setActualDate, 100);
-    var intervalIdTime = 1;
-    intervalIdTime = setInterval(setActualTime, 100);
+    function setUpdatedOrders() {
+        $('#resultsBlock').load("/admin/getUpdatedOrders");
+    }
+
+    setInterval(setActualDate, 100);
+    setInterval(setActualTime, 100);
+    setInterval(setUpdatedOrders, 400);
 </script>
 
 </html>

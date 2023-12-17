@@ -23,7 +23,18 @@ public class OrderService {
     }
 
     public List<Order> getAllOrders() {
-        return orderRepository.getAllBy();
+        return orderRepository.getAllByOrderById();
+    }
+
+    public void orderSetNextStage(Long orderId) {
+        Order orderFromDatabase = orderRepository.getReferenceById(orderId);
+        Order.OrderState state = orderFromDatabase.getOrderState();
+
+        switch (state) {
+            case PENDING -> orderRepository.updateOrderStateById(orderId, Order.OrderState.PROCESSING);
+            case PROCESSING -> orderRepository.updateOrderStateById(orderId, Order.OrderState.COMPLETED);
+            case COMPLETED -> throw new IllegalArgumentException("There is no next stage of order!");
+        }
     }
 
     public static Map<Order, List<OrderedFood>> groupByOrder(List<Order> orders, List<OrderedFood> orderedFoods) {

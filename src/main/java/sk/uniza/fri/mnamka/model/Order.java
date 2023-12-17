@@ -23,20 +23,25 @@ public class Order extends AbstractEntity {
 
     public enum OrderState {
 
-        PENDING("Čakajúca"),
-        PROCESSING("Spracovávaná"),
-        COMPLETED("Dokončená");
+        PENDING("Čakajúca", "Objednávka začína byť SPRACOVÁVANÁ..."),
+        PROCESSING("Spracovávaná", "Objednávka je DOKONČENÁ..."),
+        COMPLETED("Dokončená", null);
 
         private final String displayName;
+        private final String nextOrderText;
 
-        OrderState(String displayName) {
+        OrderState(String displayName, String nextOrderText) {
             this.displayName = displayName;
+            this.nextOrderText = nextOrderText;
         }
 
         public String getDisplayName() {
             return displayName;
         }
 
+        public String getNextOrderText() {
+            return nextOrderText;
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sk.uniza.fri.mnamka.controller.PageController;
 import sk.uniza.fri.mnamka.exception.UserException;
@@ -48,6 +49,26 @@ public class AdminController extends PageController {
         if (Authenticator.isUserLoggedInAdmin()) {
             model.addAttribute("orders", OrderService.groupByOrder(orderService.getAllOrders(), orderedFoodService.getAllOrderedFoods()));
             return getPathFormatter().getPageNameWithPath("process_order_page");
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/getUpdatedOrders")
+    public String getUpdatedOrders(Model model) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            model.addAttribute("orders", OrderService.groupByOrder(orderService.getAllOrders(), orderedFoodService.getAllOrderedFoods()));
+            return String.format("%s :: ordersList", getPathFormatter().getPageNameWithPath("orders"));
+        } else {
+            throw new UserException.NotAllowedToAccess();
+        }
+    }
+
+    @GetMapping("/updateOrder")
+    public String updateOrder(@RequestParam("id") Long orderId) {
+        if (Authenticator.isUserLoggedInAdmin()) {
+            orderService.orderSetNextStage(orderId);
+            return "redirect:/admin/processOrders";
         } else {
             throw new UserException.NotAllowedToAccess();
         }
