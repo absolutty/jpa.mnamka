@@ -61,22 +61,23 @@ function setButtonText(button, price, quantity) {
 }
 
 function addToCart(id, quantity) {
-    fetch('http://localhost:8080/cart/addToCart?foodId=' + id + '&quantity=' + quantity, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
+    $.ajax({
+        url: 'http://localhost:8080/cart/addToCart',
+        method: 'POST',
+        data: {
+            foodId: id,
+            quantity: quantity
+        },
+        dataType: 'json',
+        success: function (data) {
             if (data && data.status === 'success') {
-                window.location.reload();
+                $('#cartLink').css('display', 'block');
+                $('#foodDetailModal').modal('hide');
+                $('#addToCartButton').replaceWith($('#addToCartButton').clone());
             }
-        })
-        .catch(error => {
+        },
+        error: function (error) {
             console.error('Error:', error);
-        });
+        }
+    });
 }
