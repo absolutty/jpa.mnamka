@@ -44,14 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     mobileMenuToggle.appendChild(checkBox);
 
 
-                    navigationBarRow.style.display = 'block';
+                    navigationBarRow.style.display = 'none';
                     wrap(navigationBarRow, mobileMenuToggle);
 
                     function toggleNavigationBar() {
                         if (checkBox.checked) {
-                            navigationBarRow.style.display = 'none';
-                        } else {
                             navigationBarRow.style.display = 'block';
+                        } else {
+                            navigationBarRow.style.display = 'none';
                         }
                     }
                     checkBox.addEventListener('change', toggleNavigationBar);
