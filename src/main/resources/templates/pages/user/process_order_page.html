@@ -50,7 +50,12 @@
         });
     }
     function setUpdatedOrders() {
-        $('#resultsBlock').load("/admin/getUpdatedOrders");
+        $.ajax({
+            url: '/admin/getUpdatedOrders',
+            success: function () {
+                $('#resultsBlock').load('/admin/getUpdatedOrders');
+            }
+        });
     }
 
     setInterval(setActualDate, 100);

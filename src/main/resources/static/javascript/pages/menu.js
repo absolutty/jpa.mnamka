@@ -56,8 +56,8 @@ function showModalAddToCart(id, name, description, measurement, price, img_url) 
     }
 }
 
-function setButtonText(button, price, quantity) {
-    button.textContent = 'Pridaj jedlo za ' + (price * quantity).toFixed(2) + '€';
+function setButtonText(button) {
+    button.textContent = 'Pridaj do košíka';
 }
 
 function addToCart(id, quantity) {
