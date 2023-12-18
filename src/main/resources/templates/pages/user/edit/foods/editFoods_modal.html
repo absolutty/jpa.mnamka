@@ -8,7 +8,7 @@
 			<div class="modal-body">
 				<form method="post" th:action="${foodToBeEdited.isNewEntityBeingCreated ()} ? @{/admin/foods/add} : @{/admin/foods/edit}">
 					<!--     FOODSs ID     -->
-					<div th:if="${!foodToBeEdited.isNewEntityBeingCreated ()}" class="row mb-3">
+					<div class="row mb-3" style="display: none">
 						<label for="foodId" class="col-sm-2 col-form-label">Id</label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" id="foodId" th:value="${foodToBeEdited.id}" th:field="*{foodToBeEdited.id}" readonly>
