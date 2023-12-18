@@ -9,7 +9,7 @@
       <div class="modal-body">
         <form method="post" th:action="${userToBeEdited.isNewEntityBeingCreated()} ? @{/admin/users/add} : @{/admin/users/edit}">
           <!--     USERs ID     -->
-          <div th:if="${!userToBeEdited.isNewEntityBeingCreated()}" class="row mb-3">
+          <div class="row mb-3" style="display: none">
             <label for="userId" class="col-sm-2 col-form-label">Id</label>
             <div class="col-sm-10">
               <input type="number" class="form-control" id="userId" th:value="${userToBeEdited.id}" th:field="*{userToBeEdited.id}" readonly>
@@ -57,7 +57,7 @@
           </div>
           <!--     USERs PHONE_NUMBER     -->
           <div class="row mb-3">
-            <label for="userPhoneNumber" class="col-sm-2 col-form-label">Telefónne číslo</label>
+            <label for="userPhoneNumber" class="col-sm-2 col-form-label">Tel. číslo</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="userPhoneNumber" th:value="${userToBeEdited.phoneNumber}" th:field="*{userToBeEdited.phoneNumber}" required>
             </div>

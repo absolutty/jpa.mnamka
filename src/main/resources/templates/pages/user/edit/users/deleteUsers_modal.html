@@ -9,14 +9,14 @@
                 <h5>Naozaj si praješ vymazať tohto používateľa?</h5>
                 <form method="post" th:action="@{/admin/users/delete}">
                     <!--     USERs ID     -->
-                    <div class="row mb-3">
+                    <div class="row mb-3" style="display: none">
                         <label for="userId" class="col-sm-2 col-form-label">Id</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" id="userId" th:value="${userToBeDeleted.id}" th:field="*{userToBeDeleted.id}" readonly>
                         </div>
                     </div>
                     <!--     USERs EMAIL     -->
-                    <div class="row mb-3">
+                    <div class="row mb-3" style="display: none">
                         <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" id="userEmail" th:value="${userToBeDeleted.email}" th:field="*{userToBeDeleted.email}" readonly>
