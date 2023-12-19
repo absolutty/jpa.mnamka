@@ -6,18 +6,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import sk.uniza.fri.mnamka.helpers.ArrayHelper;
-import sk.uniza.fri.mnamka.service.CustomUserDetailsService;
+import sk.uniza.fri.mnamka.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomUserDetailsService userDetailsService;
+    private final UserService userDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(UserService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -37,7 +37,12 @@ public class SecurityConfig {
                 .loginProcessingUrl("/performLogin")
                 .failureUrl("/login-error");
 
+        http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest()
+                        .permitAll())
+                .csrf(AbstractHttpConfigurer::disable);
+
         return http.build();
+
     }
 
     @SuppressWarnings("deprecation")

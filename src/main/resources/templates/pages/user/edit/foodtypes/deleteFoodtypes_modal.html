@@ -9,14 +9,14 @@
 				<h5>Naozaj si praješ vymazať túto kategóriu jedla?</h5>
 				<form method="post" th:action="@{/admin/foodtypes/delete}">
 					<!--     FOODTYPEs ID     -->
-					<div class="row mb-3">
+					<div class="row mb-3" style="display: none">
 						<label for="foodtypeId" class="col-sm-2 col-form-label">Id</label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" id="foodtypeId" th:value="${foodTypeToBeDeleted.id}" th:field="*{foodTypeToBeDeleted.id}" readonly>
 						</div>
 					</div>
 					<!--     FOODTYPEs NAME     -->
-					<div class="row mb-3">
+					<div class="row mb-3" style="display: none">
 						<label for="foodtypeName" class="col-sm-2 col-form-label">Názov</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="foodtypeName" th:value="${foodTypeToBeDeleted.name}" th:field="*{foodTypeToBeDeleted.name}" readonly>

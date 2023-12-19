@@ -2,13 +2,13 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="editFoodModalLabel" th:text="${foodToBeEdited.isNewFoodBeingCreated() ? 'Vytváraš jedlo' : 'Edituješ jedlo' }"></h1>
+				<h1 class="modal-title fs-5" id="editFoodModalLabel" th:text="${foodToBeEdited.isNewEntityBeingCreated () ? 'Vytváraš jedlo' : 'Edituješ jedlo' }"></h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form method="post" th:action="${foodToBeEdited.isNewFoodBeingCreated()} ? @{/admin/foods/add} : @{/admin/foods/edit}">
+				<form method="post" th:action="${foodToBeEdited.isNewEntityBeingCreated ()} ? @{/admin/foods/add} : @{/admin/foods/edit}">
 					<!--     FOODSs ID     -->
-					<div th:if="${!foodToBeEdited.isNewFoodBeingCreated()}" class="row mb-3">
+					<div class="row mb-3" style="display: none">
 						<label for="foodId" class="col-sm-2 col-form-label">Id</label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" id="foodId" th:value="${foodToBeEdited.id}" th:field="*{foodToBeEdited.id}" readonly>
@@ -26,7 +26,7 @@
 						<label for="foodDescription" class="col-sm-2 col-form-label">Popis</label>
 						<div class="col-sm-10">
 							<!-- Use a textarea with rows attribute -->
-							<textarea class="form-control" id="foodDescription" th:value="${foodToBeEdited.description}" th:field="*{foodToBeEdited.description}" required rows="3"></textarea>
+							<textarea class="form-control" id="foodDescription" th:value="${foodToBeEdited.description}" th:field="*{foodToBeEdited.description}" rows="3"></textarea>
 						</div>
 					</div>
 					<!--     FOODs MEASUREMENT     -->
@@ -61,15 +61,15 @@
 					<div class="row mb-3">
 						<label for="foodImgUrl" class="col-sm-2 col-form-label">Img url</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="foodImgUrl" th:value="${foodToBeEdited.img_url}" th:field="*{foodToBeEdited.img_url}" required>
+							<input type="text" class="form-control" id="foodImgUrl" th:value="${foodToBeEdited.img_url}" th:field="*{foodToBeEdited.img_url}">
 						</div>
 					</div>
 
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvor</button>
-					<th:block th:if="${foodToBeEdited.isNewFoodBeingCreated()}">
+					<th:block th:if="${foodToBeEdited.isNewEntityBeingCreated ()}">
 						<button type="submit" class="btn btn-primary">Vytvor</button>
 					</th:block>
-					<th:block th:unless="${foodToBeEdited.isNewFoodBeingCreated()}">
+					<th:block th:unless="${foodToBeEdited.isNewEntityBeingCreated ()}">
 						<button type="submit" class="btn btn-primary">Ulož</button>
 					</th:block>
 				</form>

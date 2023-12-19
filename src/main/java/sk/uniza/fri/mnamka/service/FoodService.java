@@ -2,6 +2,7 @@ package sk.uniza.fri.mnamka.service;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
+import sk.uniza.fri.mnamka.exception.EntityException;
 import sk.uniza.fri.mnamka.model.FoodModel;
 import sk.uniza.fri.mnamka.model.FoodTypeModel;
 import sk.uniza.fri.mnamka.repository.FoodRepository;
@@ -47,7 +48,7 @@ public class FoodService {
 
     public void updateExistingFood(FoodModel food) {
         if (food == null || food.anyRequiredFieldIsEmpty()) {
-            throw new IllegalArgumentException("Given FOOD is not correct!");
+            throw new EntityException.IsNotValid();
         } else {
             foodRepository.updateFoodWithId(
                     food.getId(), food.getName(), food.getDescription(), food.getMeasurement(), food.getPrice(), food.getType(), food.getImg_url()
@@ -57,7 +58,7 @@ public class FoodService {
 
     public void deleteExistingFood(FoodModel food) {
         if (food == null) {
-            throw new IllegalArgumentException("Given FOOD null!");
+            throw new EntityException.IsNotValid();
         } else {
             foodRepository.deleteUserWithIdAndEmail(food.getId());
         }
@@ -65,12 +66,12 @@ public class FoodService {
 
     public void createFood(FoodModel food) {
         if (food == null || food.anyRequiredFieldIsEmpty()) {
-            throw new IllegalArgumentException("Given FOOD is not correct!");
+            throw new EntityException.IsNotValid();
         }
 
         FoodModel foodAlreadyInDatabase = foodRepository.findFoodModelByName(food.getName());
         if (foodAlreadyInDatabase == null) {
-            FoodModel newFood = foodRepository.save(food);
+            foodRepository.save(food);
             foodRepository.flush();
         } else {
             throw new BadCredentialsException("Name to identify food already exists!");

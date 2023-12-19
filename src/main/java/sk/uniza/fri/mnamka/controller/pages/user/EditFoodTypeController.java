@@ -30,9 +30,12 @@ public class EditFoodTypeController extends AdminController {
     @PostMapping("/edit")
     public String doEditUser(@ModelAttribute FoodTypeModel newFoodType, RedirectAttributes redirectAttributes) {
         if (Authenticator.isUserLoggedInAdmin()) {
-            foodTypeService.updateExistingUser(newFoodType);
-
-            redirectAttributes.addFlashAttribute("success", "Typ jedla uspešne upravená!");
+            try {
+                foodTypeService.updateExistingFoodType(newFoodType);
+                redirectAttributes.addFlashAttribute("success", "Typ jedla uspešne upravená!");
+            } catch (BadCredentialsException ex) {
+                redirectAttributes.addFlashAttribute("failure", "Nemožno upraviť jedlo, duplicitný primary key!");
+            }
             return "redirect:/admin";
         } else {
             throw new UserException.NotAllowedToAccess();

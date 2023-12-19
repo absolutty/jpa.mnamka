@@ -1,0 +1,37 @@
+.container-fluid .row {
+    height: 87vh;
+}
+
+.column {
+    padding: 0 16px 0 16px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.column .column-content {
+    height: 100%;
+}
+
+.about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.description .title {
+    margin-top: 32px;
+    font-weight: bold;
+}
+
+.description .text {
+    margin-top: 32px;
+    font-size: 20px;
+}
+
+.description .button-large {
+    margin-top: 32px;
+}
+
+.description {
+    text-align: center;
+}

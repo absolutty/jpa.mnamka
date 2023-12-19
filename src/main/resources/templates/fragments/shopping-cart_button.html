@@ -1,0 +1,8 @@
+<link th:href="@{/css/fragments/shopping-cart_button.css}" rel="stylesheet" type="text/css">
+<a id="cartLink" th:href="@{/cart}">
+  <img id="shopping-cart_button" class="actionIcon ml-2" th:src="@{/images/icons/shopping-cart.gif}" alt="Edit">
+</a>
+<script type="text/javascript" th:if="${(session.cartContent == null) || (session.cartContent != null && session.cartContent.size() <= 0)}">
+  var cartLink = document.getElementById("cartLink");
+  cartLink.style.display = "none";
+</script>
