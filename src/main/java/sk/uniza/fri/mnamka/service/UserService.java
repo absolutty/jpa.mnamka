@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import sk.uniza.fri.mnamka.exception.EntityException;
 import sk.uniza.fri.mnamka.model.User;
 import sk.uniza.fri.mnamka.repository.UserRepository;
 
@@ -27,14 +28,11 @@ public class UserService  implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with email");
         }
 
-        UserDetails userDetails =
-                org.springframework.security.core.userdetails.User.builder()
-                        .username(user.getEmail())
-                        .password(user.getPassword())
-                        .roles(user.getRole())
-                        .build();
-
-        return userDetails;
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRole())
+                .build();
     }
 
     public User authenticateUser(User user) {
@@ -52,7 +50,7 @@ public class UserService  implements UserDetailsService {
 
     public User createUser(User user){
         if (user == null || user.anyRequiredFieldIsEmpty()) {
-            throw new IllegalArgumentException("Given USER is not correct!");
+            throw new EntityException.IsNotValid();
         }
 
         User userAlreadyInDatabase = userRepository.findUserByEmail(user.getEmail());
@@ -72,7 +70,7 @@ public class UserService  implements UserDetailsService {
 
     public User getUserByEmail(String email) {
         if (email == null) {
-            throw new IllegalArgumentException("Given EMAIL is null!");
+            throw new EntityException.IsNotValid();
         } else {
             return userRepository.findUserByEmail(email);
         }
@@ -80,7 +78,7 @@ public class UserService  implements UserDetailsService {
 
     public void updateExistingUser(User user) {
         if (user == null || user.anyRequiredFieldIsEmpty()) {
-            throw new IllegalArgumentException("Given USER is not correct!");
+            throw new EntityException.IsNotValid();
         } else {
             userRepository.updateUserWithId(
                     user.getId(),
@@ -98,7 +96,7 @@ public class UserService  implements UserDetailsService {
 
     public void deleteExistingUser(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("Given USER null!");
+            throw new EntityException.IsNotValid();
         } else {
             userRepository.deleteUserWithIdAndEmail(user.getId(), user.getEmail());
         }
