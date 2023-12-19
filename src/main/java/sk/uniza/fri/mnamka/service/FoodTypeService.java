@@ -2,6 +2,7 @@ package sk.uniza.fri.mnamka.service;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
+import sk.uniza.fri.mnamka.exception.EntityException;
 import sk.uniza.fri.mnamka.model.FoodTypeModel;
 import sk.uniza.fri.mnamka.repository.FoodTypeRepository;
 
@@ -32,33 +33,36 @@ public class FoodTypeService {
         }
     }
 
-    public void updateExistingUser(FoodTypeModel foodType) {
+    public void updateExistingFoodType(FoodTypeModel foodType) {
         if (foodType == null || foodType.anyRequiredFieldIsEmpty()) {
-            throw new IllegalArgumentException("Given USER is not correct!");
+            throw new EntityException.IsNotValid();
         } else {
-            foodTypeRepository.updateFoodTypeWithId(foodType.getId(), foodType.getName());
+            FoodTypeModel foodTypeAlreadyInDatabase = foodTypeRepository.findFoodTypeByName(foodType.getName());
+            if (foodTypeAlreadyInDatabase == null) {
+                foodTypeRepository.updateFoodTypeWithId(foodType.getId(), foodType.getName());
+            } else {
+                throw new BadCredentialsException("Name to identify foodtype already exists!");
+            }
         }
     }
 
     public void deleteExistingFoodType(FoodTypeModel foodType) {
         if (foodType == null) {
-            throw new IllegalArgumentException("Given FOODTYPE null!");
+            throw new EntityException.IsNotValid();
         } else {
             foodTypeRepository.deleteFoodTypeWithIdAndName(foodType.getId(), foodType.getName());
         }
     }
 
-    public FoodTypeModel createFoodType(FoodTypeModel foodType) {
+    public void createFoodType(FoodTypeModel foodType) {
         if (foodType == null || foodType.anyRequiredFieldIsEmpty()) {
-            throw new IllegalArgumentException("Given FOODTYPE is not correct!");
+            throw new EntityException.IsNotValid();
         }
 
         FoodTypeModel foodTypeAlreadyInDatabase = foodTypeRepository.findFoodTypeByName(foodType.getName());
         if (foodTypeAlreadyInDatabase == null) {
-            FoodTypeModel newFoodType = foodTypeRepository.save(foodType);
+            foodTypeRepository.save(foodType);
             foodTypeRepository.flush();
-
-            return newFoodType;
         } else {
             throw new BadCredentialsException("Name to identify foodtype already exists!");
         }

@@ -27,6 +27,9 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             } else if(statusCode == HttpStatus.UNAUTHORIZED.value()) {
                 model.addAttribute("errorImage", "/images/error403.png");
                 model.addAttribute("errorMessage", "Ups, sem nemáš prístup!");
+            } else if (statusCode == HttpStatus.UNPROCESSABLE_ENTITY.value()) {
+                model.addAttribute("errorImage", "/images/error422.jpg");
+                model.addAttribute("errorMessage", "Nemožno manipulovať s entitou, nie je správna.");
             }
         }
         return pathFormatter.getPageNameWithPath("error-page");
