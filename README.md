@@ -6,6 +6,7 @@ Použité technológie:
 - databáza PostgreSQL
 - HTML
 - CSS (BootStrap ver. 4.5.2)
+- JavaScript (jQuery)
 - Ajax
 
 <h3> 
